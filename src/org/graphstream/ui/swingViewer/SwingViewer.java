@@ -45,7 +45,6 @@ import org.graphstream.graph.Node;
 import org.graphstream.stream.ProxyPipe;
 import org.graphstream.stream.Source;
 import org.graphstream.stream.thread.ThreadProxyPipe;
-import org.graphstream.ui.fxViewer.FxViewPanel;
 import org.graphstream.ui.geom.Point3;
 import org.graphstream.ui.graphicGraph.GraphicGraph;
 import org.graphstream.ui.layout.Layout;
@@ -387,10 +386,6 @@ public class SwingViewer implements Viewer, ActionListener{
 	 */
 	public ViewPanel getDefaultView() {
 		return (DefaultView) getView(DEFAULT_VIEW_ID);
-	}
-	
-	public FxViewPanel getFxDefaultView() {
-		return (FxViewPanel) getView(DEFAULT_VIEW_ID);
 	}
 
 	// Command
