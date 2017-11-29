@@ -31,30 +31,32 @@
  */
 package org.graphstream.ui.swingViewer;
 
-import org.graphstream.ui.graphicGraph.GraphicElement;
-import org.graphstream.ui.graphicGraph.GraphicGraph;
-import org.graphstream.ui.swingViewer.util.DefaultMouseManager;
-import org.graphstream.ui.swingViewer.util.DefaultShortcutManager;
-import org.graphstream.ui.view.Viewer;
-import org.graphstream.ui.view.Camera;
-import org.graphstream.ui.view.GraphRenderer;
-import org.graphstream.ui.view.LayerRenderer;
-import org.graphstream.ui.view.util.*;
-
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Collection;
 import java.util.EnumSet;
+
+import javax.swing.JFrame;
+
+import org.graphstream.ui.graphicGraph.GraphicElement;
+import org.graphstream.ui.graphicGraph.GraphicGraph;
+import org.graphstream.ui.swingViewer.util.DefaultMouseManager;
+import org.graphstream.ui.swingViewer.util.DefaultShortcutManager;
+import org.graphstream.ui.view.Camera;
+import org.graphstream.ui.view.GraphRenderer;
+import org.graphstream.ui.view.LayerRenderer;
+import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.util.InteractiveElement;
+import org.graphstream.ui.view.util.MouseManager;
+import org.graphstream.ui.view.util.ShortcutManager;
 
 /**
  * Base for constructing views.
@@ -386,10 +388,46 @@ public class DefaultView extends ViewPanel implements WindowListener, ComponentL
 
 		shortcuts = manager;
 	}
-
+	
 	@Override
-	public <T extends Event> void addEventFilter(EventType<T> eventType, EventHandler<? super T> eventFilter) {
-		// TODO Auto-generated method stub
+	public <T, U> void addListener(T descriptor, U listener) {
+		String description = (String)descriptor ;
 		
+		if (description.equals("Mouse")) {
+			MouseListener mouse = (MouseListener) listener ;
+			addMouseListener(mouse);
+		}
+		else if(description.equals("MouseMotion")) {
+			MouseMotionListener mouse = (MouseMotionListener) listener ;
+			addMouseMotionListener(mouse);
+		}
+		else if(description.equals("Key")) {
+			KeyListener mouse = (KeyListener) listener ;
+			addKeyListener(mouse);
+		}
+		else {
+			throw new RuntimeException("Listener unknown !");
+		}
+	}
+	
+	@Override
+	public <T, U> void removeListener(T descriptor, U listener) {
+		String description = (String)descriptor ;
+		
+		if (description.equals("Mouse")) {
+			MouseListener mouse = (MouseListener) listener ;
+			removeMouseListener(mouse);
+		}
+		else if(description.equals("MouseMotion")) {
+			MouseMotionListener mouse = (MouseMotionListener) listener ;
+			removeMouseMotionListener(mouse);
+		}
+		else if(description.equals("Key")) {
+			KeyListener mouse = (KeyListener) listener ;
+			removeKeyListener(mouse);
+		}
+		else {
+			throw new RuntimeException("Listener unknown !");
+		}
 	}
 }

@@ -70,8 +70,8 @@ public class DefaultMouseManager implements MouseInputListener, MouseManager {
 	public void init(GraphicGraph graph, View view) {
 		this.view = view;
 		this.graph = graph;
-		view.addMouseListener(this);
-		view.addMouseMotionListener(this);
+		view.addListener("Mouse", this);
+		view.addListener("MouseMotion", this);
 	}
 
 	@Override
@@ -80,8 +80,8 @@ public class DefaultMouseManager implements MouseInputListener, MouseManager {
 	}
 
 	public void release() {
-		view.removeMouseListener(this);
-		view.removeMouseMotionListener(this);
+		view.removeListener("Mouse", this);
+		view.removeListener("MouseMotion", this);
 	}
 
 	// Command

@@ -59,11 +59,11 @@ public class DefaultShortcutManager implements ShortcutManager, KeyListener
 
 	public void init(GraphicGraph graph, View view) {
 		this.view = view;
-		view.addKeyListener(this);
+		view.addListener("Key", this);
 	}
 
 	public void release() {
-		view.removeKeyListener(this);
+		view.removeListener("Key", this);
 	}
 
 	// Events
