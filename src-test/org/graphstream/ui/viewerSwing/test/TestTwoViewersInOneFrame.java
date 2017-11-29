@@ -21,8 +21,14 @@ public class TestTwoViewersInOneFrame extends JFrame {
 	private void run() {
 		MultiGraph graph1 = new MultiGraph("g1");
 		MultiGraph graph2 = new MultiGraph("g2");
-		Viewer viewer1 = new SwingViewer(new ThreadProxyPipe(graph1));
-		Viewer viewer2 = new SwingViewer(new ThreadProxyPipe(graph2));
+		
+		ThreadProxyPipe pipe1 = new ThreadProxyPipe() ;
+		pipe1.init(graph1);
+		ThreadProxyPipe pipe2 = new ThreadProxyPipe() ;
+		pipe2.init(graph2);
+		
+		Viewer viewer1 = new SwingViewer(pipe1);
+		Viewer viewer2 = new SwingViewer(pipe2);
 
 	    graph1.setAttribute("ui.quality");
 	    graph2.setAttribute("ui.quality");
