@@ -58,9 +58,9 @@ import org.graphstream.ui.swingViewer.SwingViewer;
  * </pre>
  */
 public class DemoLayoutAndViewer {
-//	public static final String GRAPH = "data/dorogovtsev_mendes6000.dgs"; public static final double a= 0; public static final double r=-1.3; public static double force = 3;
+	public static final String GRAPH = "data/dorogovtsev_mendes6000.dgs"; public static final double a= 0; public static final double r=-1.3; public static double force = 3;
 //	public static final String GRAPH = "data/karate.gml";		public static double a= 0; public static double r=-1.3; public static double force = 3;
-	public static final String GRAPH = "data/dolphins.gml";		public static double a= 0; public static double r=-1.2; public static double force = 8;
+//	public static final String GRAPH = "data/dolphins.gml";		public static double a= 0; public static double r=-1.2; public static double force = 8;
 //	public static final String GRAPH = "data/polbooks.gml";		public static double a= 0; public static double r=-2; public static double force = 3;
 //	public static final String GRAPH = "data/triangles.dgs";	public static double a= 1; public static double r=-1; public static double force = 3;
 //	public static final String GRAPH = "data/FourClusters.dgs";	public static double a= 0; public static double r=-1; public static double force = 3;
