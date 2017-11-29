@@ -165,8 +165,9 @@ public class SwingFullGraphRenderer implements GraphRenderer<Container, Graphics
     
     /** Get (and assign if needed) a style renderer to a style group. The renderer will be reused then. */
     protected StyleRenderer getStyleRenderer(StyleGroup style) {
-  		if( style.getRenderer("dr") == null)
+    	if( style.getRenderer("dr") == null) {
   			style.addRenderer("dr", StyleRenderer.apply(style, this));
+  		}
     
   		return (StyleRenderer)style.getRenderer("dr");
     }

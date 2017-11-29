@@ -149,7 +149,7 @@ public class JComponentRenderer extends StyleRenderer {
 
 		JComponent component = (JComponent)element.getComponent();
 		ComponentElement ce = null;
-		
+
 		if(component == null) {
 			switch (group.getJComponent()) {
 				case BUTTON:
@@ -164,8 +164,9 @@ public class JComponentRenderer extends StyleRenderer {
 					 throw new RuntimeException("WTF ?!?");
 			}
 			
-			if( ce != null )
+			if( ce != null ) {
 				compToElement.put(ce.jComponent, ce);
+			}
 		}
 		else {
 			ce = compToElement.get(component);
@@ -199,15 +200,15 @@ public class JComponentRenderer extends StyleRenderer {
 	 */
  	abstract class ComponentElement extends JPanel 
  	{
- 		GraphicElement element ;
+ 		protected GraphicElement element ;
  		
  		/** Set to true if the element is not yet initialised with its style. */
-		boolean init = false;
+		protected boolean init = false;
 
 	// Access
 
 		/** The Swing Component. */
- 		JComponent jComponent ;
+ 		protected JComponent jComponent ;
 
  	// Construction
 		public ComponentElement(GraphicElement element) {
@@ -319,9 +320,7 @@ public class JComponentRenderer extends StyleRenderer {
  	}
  	
  	class TextFieldComponentElement extends ComponentElement implements ActionListener {
- 		protected GraphicElement element ;
- 		protected JTextField comp ;
- 		protected JComponent jComponent ;
+ 		private JTextField comp ;
  		
 		public TextFieldComponentElement(GraphicElement element, JTextField comp) {
 			super(element);
@@ -390,8 +389,7 @@ public class JComponentRenderer extends StyleRenderer {
  	
  	class ButtonComponentElement extends ComponentElement implements ActionListener {
  		
-		protected GraphicElement element ;
- 		protected JButton comp ;
+ 		private JButton comp ;
  		
  		public ButtonComponentElement(GraphicElement element, JButton comp) {
 			super(element);
@@ -475,14 +473,17 @@ public class JComponentRenderer extends StyleRenderer {
 						case AT_RIGHT:
 							comp.setHorizontalTextPosition( SwingConstants.LEFT  );
 							comp.setVerticalTextPosition( SwingConstants.CENTER );
+							break;
 						case ABOVE:
 							comp.setHorizontalTextPosition( SwingConstants.CENTER );
 							comp.setVerticalTextPosition( SwingConstants.BOTTOM );
+							break;
 						case UNDER:
 							comp.setHorizontalTextPosition( SwingConstants.CENTER );
 							comp.setVerticalTextPosition( SwingConstants.TOP );
+							break;
 						default:
-							throw new RuntimeException( "unknown image mode" );
+							throw new RuntimeException( "unknown image mode "+group.getIconMode() );
 					}
 				}
 			} 			
