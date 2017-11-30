@@ -14,7 +14,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.swing.SwingDefaultCamera;
 import org.graphstream.ui.swing.util.ImageCache;
-import org.graphstream.ui.swingViewer.util.GradientFactory;
+import org.graphstream.ui.swing_viewer.util.GradientFactory;
 import org.graphstream.ui.view.util.GraphMetrics;
 
 /**

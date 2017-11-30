@@ -4,7 +4,7 @@ import org.graphstream.graph.Graph;
 import org.graphstream.ui.layout.Layout;
 import org.graphstream.ui.layout.Layouts;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
-import org.graphstream.ui.swingViewer.SwingViewer;
+import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.view.GraphRenderer;
 import org.graphstream.ui.view.Viewer;
 

@@ -33,8 +33,8 @@ package org.graphstream.ui.viewer.test;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
-import org.graphstream.ui.swingViewer.SwingViewer;
-import org.graphstream.ui.swingViewer.ViewPanel;
+import org.graphstream.ui.swing_viewer.SwingViewer;
+import org.graphstream.ui.swing_viewer.ViewPanel;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
