@@ -4,6 +4,7 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
@@ -19,72 +20,72 @@ public class TestArrows {
 class BTest implements ViewerListener {
 	boolean loop = true;
 	
-	public static final String URL_IMAGE = "file:///home/hicham/Bureau/b.png" ;
+	public static final String URL_IMAGE = ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon.png").toString();
 
 	
 	public void run(){
 		try {
-		MultiGraph graph  = new MultiGraph( "TestSize" );
-		Viewer viewer = new SwingViewer( graph, SwingViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD );
-		ViewerPipe pipeIn = viewer.newViewerPipe();
-
-		View view   = viewer.addView("view1", new SwingFullGraphRenderer() );
-
-		pipeIn.addAttributeSink( graph );
-		pipeIn.addViewerListener( this );
-		pipeIn.pump();
-
-		graph.setAttribute( "ui.stylesheet", styleSheet );
-		graph.setAttribute( "ui.antialias" );
-		graph.setAttribute( "ui.quality" );
-
-		Node A = graph.addNode( "A" );
-		Node B = graph.addNode( "B" );
-		Node C = graph.addNode( "C" );
-		Node D = graph.addNode( "D" );
-		Node E = graph.addNode( "E" );
-		Node F = graph.addNode( "F" );
-
-		Edge AB = graph.addEdge( "AB", "A", "B", true );
-		Edge BC = graph.addEdge( "BC", "B", "C", true );
-		Edge CD = graph.addEdge( "CD", "C", "D", true );
-		Edge DA = graph.addEdge( "DA", "D", "A", true );
-		Edge BB = graph.addEdge( "BB", "B", "B", true );
-		Edge DE = graph.addEdge( "DE", "D", "E", true );
-		Edge DF = graph.addEdge( "DF", "D", "F", true );
-		Edge CF = graph.addEdge( "CF", "C", "F", true );
-
-		A.setAttribute("xyz", new double[] { 0, 1, 0 });
-		B.setAttribute("xyz", new double[] { 1, 0.8, 0 });
-		C.setAttribute("xyz", new double[] { 0.8, 0, 0 });
-		D.setAttribute("xyz", new double[] { 0, 0, 0 });
-		E.setAttribute("xyz", new double[] { 0.5, 0.5, 0 });
-		F.setAttribute("xyz", new double[] { 0.5, 0.25, 0 });
-
-		A.setAttribute("label", "A");
-		B.setAttribute("label", "Long label ...");
-		C.setAttribute("label", "C");
-		D.setAttribute("label", "A long label ...");
-		E.setAttribute("label", "Another very long label");
-		F.setAttribute("label", "F");
-
-		double size = 20f;
-		double sizeInc = 1f;
+			MultiGraph graph  = new MultiGraph( "TestSize" );
+			Viewer viewer = new SwingViewer( graph, SwingViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD );
+			ViewerPipe pipeIn = viewer.newViewerPipe();
+	
+			View view   = viewer.addView("view1", new SwingFullGraphRenderer() );
 			
-		while( loop ) {
+			pipeIn.addAttributeSink( graph );
+			pipeIn.addViewerListener( this );
 			pipeIn.pump();
-			sleep( 40 );
-			A.setAttribute( "ui.size", size );
-
-			size += sizeInc;
-
-			if( size > 50 ) {
-				sizeInc = -1f; size = 50f;
+			
+			graph.setAttribute( "ui.stylesheet", styleSheet );
+			graph.setAttribute( "ui.antialias" );
+			graph.setAttribute( "ui.quality" );
+	
+			Node A = graph.addNode( "A" );
+			Node B = graph.addNode( "B" );
+			Node C = graph.addNode( "C" );
+			Node D = graph.addNode( "D" );
+			Node E = graph.addNode( "E" );
+			Node F = graph.addNode( "F" );
+	
+			Edge AB = graph.addEdge( "AB", "A", "B", true );
+			Edge BC = graph.addEdge( "BC", "B", "C", true );
+			Edge CD = graph.addEdge( "CD", "C", "D", true );
+			Edge DA = graph.addEdge( "DA", "D", "A", true );
+			Edge BB = graph.addEdge( "BB", "B", "B", true );
+			Edge DE = graph.addEdge( "DE", "D", "E", true );
+			Edge DF = graph.addEdge( "DF", "D", "F", true );
+			Edge CF = graph.addEdge( "CF", "C", "F", true );
+	
+			A.setAttribute("xyz", new double[] { 0, 1, 0 });
+			B.setAttribute("xyz", new double[] { 1, 0.8, 0 });
+			C.setAttribute("xyz", new double[] { 0.8, 0, 0 });
+			D.setAttribute("xyz", new double[] { 0, 0, 0 });
+			E.setAttribute("xyz", new double[] { 0.5, 0.5, 0 });
+			F.setAttribute("xyz", new double[] { 0.5, 0.25, 0 });
+	
+			A.setAttribute("label", "A");
+			B.setAttribute("label", "Long label ...");
+			C.setAttribute("label", "C");
+			D.setAttribute("label", "A long label ...");
+			E.setAttribute("label", "Another very long label");
+			F.setAttribute("label", "F");
+	
+			double size = 20f;
+			double sizeInc = 1f;
+				
+			while( loop ) {
+				pipeIn.pump();
+				sleep( 40 );
+				A.setAttribute( "ui.size", size );
+	
+				size += sizeInc;
+	
+				if( size > 50 ) {
+					sizeInc = -1f; size = 50f;
+				}
+				else if( size < 20 ) {
+					sizeInc = 1f; size = 20f;
+				}
 			}
-			else if( size < 20 ) {
-				sizeInc = 1f; size = 20f;
-			}
-		}
 		}
 		catch (Exception e) {
 			e.printStackTrace();

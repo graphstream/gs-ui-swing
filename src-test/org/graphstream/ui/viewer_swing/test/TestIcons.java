@@ -1,8 +1,11 @@
 package org.graphstream.ui.viewer_swing.test;
 
+import java.util.ArrayList;
+
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.ViewerListener;
@@ -13,11 +16,21 @@ public class TestIcons implements ViewerListener{
 		(new TestIcons()).run(args);
 	}
 	private boolean loop = true;
+	private boolean direction = true ;
 	
-	String icon1 = "file:///home/hicham/Bureau/b.png";
-	String icon2 = "file:///home/hicham/Bureau/c.png";
+	public static ArrayList<String> iconAnim = new ArrayList<>();
 			
 	private void run(String[] args) {
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_1.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_2.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_3.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_4.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_5.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_6.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_7.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_8.png").toString());
+		iconAnim.add(ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon_9.png").toString());
+		
 		MultiGraph graph  = new MultiGraph( "Icons ..." );
 		SwingViewer viewer = new SwingViewer( graph, SwingViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD );
 		ViewerPipe pipeIn = viewer.newViewerPipe();
@@ -51,27 +64,24 @@ public class TestIcons implements ViewerListener{
 		C.setAttribute("label", "Topic3");
 		D.setAttribute("label", "Topic4");
 
-		A.setAttribute("ui.icon",  icon1);
+		A.setAttribute("ui.icon", iconAnim.get(0));
 
 		int i=0;
 
 		while( loop ) {
 			pipeIn.pump();
 			sleep( 60 );
-
-			i += 1;
-
-			if( i > 26 )
-				i = 1;
-
-			if( A.getAttribute("ui.icon").equals(icon1) )
-			    A.setAttribute("ui.icon", icon2);
-			else 
-				A.setAttribute("ui.icon", icon1);
-
-			//B.setAttribute("ui.icon", "data/cube/3anidot5a_"+i+".png");
-			//C.setAttribute("ui.icon", "data/cube/3anidot5a_"+i+".png");
-			//D.setAttribute("ui.icon", "data/cube/3anidot5a_"+i+".png");
+			
+			if( i >= 9 )
+				i = 0;
+			else if (i < 0)
+				i = 8 ;
+			
+			A.setAttribute("ui.icon", iconAnim.get(i));
+			
+			if (direction)	i++ ;
+			else			i--;
+			
 		}
 		System.out.println( "bye bye" );
 		System.exit(0);
@@ -91,8 +101,10 @@ public class TestIcons implements ViewerListener{
 		System.out.println(id);
 		if( id.equals("quit") )
  			loop = false;
- 		else if( id.equals("A") )
+ 		else if( id.equals("A") ) {
  			System.out.println( "Button A pushed" );
+ 			direction = !direction;
+ 		}
 	}
 
  	public void buttonReleased( String id ) {}

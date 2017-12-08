@@ -4,11 +4,12 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
+import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
 
 public class TutorialDiagrams {
-	public static final String URL_IMAGE = "/home/hicham/Bureau/b.png";
+	public static final String URL_IMAGE = ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon.png").toString();
 	
 	public static void main(String[] args) {
 		System.setProperty("org.graphstream.ui", "org.graphstream.ui.swing.util.Display");		

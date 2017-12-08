@@ -7,6 +7,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.Units;
 import org.graphstream.ui.spriteManager.Sprite;
 import org.graphstream.ui.spriteManager.SpriteManager;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.view.ViewerListener;
@@ -17,7 +18,7 @@ public class TestSprites implements ViewerListener{
 		(new TestSprites()).run();
 	}
 	
-	public static final String URL_IMAGE = "file:///home/hicham/Bureau/b.png";
+	public static final String URL_IMAGE = ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon.png").toString();
 	
 	boolean loop = true ;
 	private void run() {

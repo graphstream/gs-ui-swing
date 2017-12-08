@@ -4,6 +4,7 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.DefaultView;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.view.Viewer;
@@ -14,7 +15,7 @@ public class TestShapeDecor implements ViewerListener {
 	public static void main(String[] args) {
 		(new TestShapeDecor()).run();
 	}
-	public static final String URL_IMAGE = "file:///home/hicham/Bureau/b.png";
+	public static final String URL_IMAGE = ImageCache.class.getClassLoader().getResource("org/graphstream/ui/viewer_swing/test/data/icon.png").toString();
 	
 	boolean loop = true ;
 	private void run() {
