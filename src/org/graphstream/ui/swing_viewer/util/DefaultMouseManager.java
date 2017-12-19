@@ -87,7 +87,7 @@ public class DefaultMouseManager implements MouseInputListener, MouseManager {
 	// Command
 
 	protected void mouseButtonPress(MouseEvent event) {
-		view.requestFocus();
+		view.requireFocus();
 
 		// Unselect all.
 

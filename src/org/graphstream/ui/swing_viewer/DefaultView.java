@@ -200,7 +200,6 @@ public class DefaultView extends ViewPanel implements WindowListener, ComponentL
 		graph.setAttribute("ui.viewClosed", getIdView());
 
 		shortcuts.release();
-		shortcuts.release();
 		mouseClicks.release();
 
 		openInAFrame(false);
@@ -387,6 +386,12 @@ public class DefaultView extends ViewPanel implements WindowListener, ComponentL
 		manager.init(graph, this);
 
 		shortcuts = manager;
+	}
+	
+	@Override
+	public Object requireFocus() {
+		requestFocus();
+		return null;
 	}
 	
 	@Override

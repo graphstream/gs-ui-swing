@@ -546,7 +546,7 @@ public class SwingViewer implements Viewer, ActionListener{
 			// display=%f (size delta=%d size1=%d size2=%d)%n",
 			// (t2-t1)/1000.0, (t3-t2)/1000.0, (t4-t3)/1000.0, (t5-t4)/1000.0,
 			// (gsize2-gsize1), gsize1, gsize2);
-	}
+		}
 	}
 	
 
