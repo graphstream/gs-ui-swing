@@ -18,6 +18,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.Value;
 import org.graphstream.ui.graphicGraph.stylesheet.Values;
 import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing.util.FontCache;
 import org.graphstream.ui.swing.util.ImageCache;
 
@@ -203,7 +204,7 @@ abstract class TextBox {
 		String fontName  = style.getTextFont();
 		TextStyle fontStyle = style.getTextStyle();
 		Value fontSize  = style.getTextSize();
-		Color textColor = style.getTextColor(0);
+		Color textColor = ColorManager.getTextColor(style, 0);
 		Color bgColor = null;
 		boolean rounded = false;	
 		
@@ -211,11 +212,11 @@ abstract class TextBox {
 			case NONE: break;
 			case PLAIN: 
 				rounded = false; 
-				bgColor = style.getTextBackgroundColor(0);
+				bgColor = ColorManager.getTextBackgroundColor(style, 0);
 				break;
 			case ROUNDEDBOX: 
 				rounded = true; 
-				bgColor = style.getTextBackgroundColor(0);
+				bgColor = ColorManager.getTextBackgroundColor(style, 0);
 				break;
 			default: break;
 		}

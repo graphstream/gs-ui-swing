@@ -13,6 +13,7 @@ import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.util.GradientFactory;
 import org.graphstream.ui.view.util.GraphMetrics;
@@ -103,14 +104,14 @@ public class GraphBackgroundRenderer implements GraphicElement.SwingElementRende
 	private void fillBackground(Graphics2D g, SwingDefaultCamera camera) {
 		GraphMetrics metrics = camera.getMetrics();
 		
-		g.setColor(style.getFillColor(0));
+		g.setColor(ColorManager.getFillColor(style, 0));
 		g.fillRect(0, 0, (int)metrics.viewport[2], (int)metrics.viewport[3]);
 	}
 	
 	private void fillCanvasBackground(Graphics2D g, SwingDefaultCamera camera) {
 		GraphMetrics metrics = camera.getMetrics();
 
-		g.setColor( style.getCanvasColor( 0 ) );
+		g.setColor( ColorManager.getCanvasColor( style, 0 ) );
 		g.fillRect( 0, 0, (int) metrics.viewport[2], (int) metrics.viewport[3]);
 	}
 	
@@ -197,7 +198,7 @@ public class GraphBackgroundRenderer implements GraphicElement.SwingElementRende
 		Graphics2D g = bck.graphics2D() ;
 		
 		if( style.getStrokeMode() != StyleConstants.StrokeMode.NONE && style.getStrokeWidth().value > 0 ) {
-			g.setColor( style.getStrokeColor( 0 ) );
+			g.setColor( ColorManager.getStrokeColor( style, 0 ) );
 			g.setStroke( new BasicStroke( (float)metrics.lengthToGu( style.getStrokeWidth() ) ) );
 			int padx = (int)metrics.lengthToPx( style.getPadding(), 0 ) ;
 			int pady = padx ;

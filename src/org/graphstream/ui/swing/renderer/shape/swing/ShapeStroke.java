@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Stroke;
 
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
+import org.graphstream.ui.swing.util.ColorManager;
 
 public abstract class ShapeStroke {
 	public abstract Stroke stroke(double width) ;
@@ -34,7 +35,7 @@ public abstract class ShapeStroke {
 	
 	public static Color strokeColor(Style style) {
 		if( style.getStrokeMode() != org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.StrokeMode.NONE ) {
-			return style.getStrokeColor( 0 );
+			return ColorManager.getStrokeColor( style, 0 );
 		} 
 		else {
 			return null;

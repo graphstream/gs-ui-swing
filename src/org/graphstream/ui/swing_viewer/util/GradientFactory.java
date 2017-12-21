@@ -33,6 +33,7 @@ package org.graphstream.ui.swing_viewer.util;
 
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.FillMode;
+import org.graphstream.ui.swing.util.ColorManager;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -112,8 +113,8 @@ public class GradientFactory {
 					paint = new LinearGradientPaint(x0, y0, x1, y1,
 							createFractions(style), createColors(style));
 				else
-					paint = new GradientPaint(x0, y0, style.getFillColor(0),
-							x1, y1, style.getFillColor(1));
+					paint = new GradientPaint(x0, y0, ColorManager.getFillColor(style, 0),
+							x1, y1, ColorManager.getFillColor(style, 1));
 				break;
 			default:
 				break;
@@ -190,7 +191,7 @@ public class GradientFactory {
 		Color colors[] = new Color[n];
 
 		for (int i = 0; i < n; i++)
-			colors[i] = style.getFillColor(i);
+			colors[i] = ColorManager.getFillColor(style, i);
 
 		return colors;
 	}

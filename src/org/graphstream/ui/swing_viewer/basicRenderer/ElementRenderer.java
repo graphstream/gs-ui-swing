@@ -45,6 +45,7 @@ import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.graphicGraph.StyleGroup.ElementEvents;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.Units;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing_viewer.util.DefaultCamera;
 import org.graphstream.ui.swing_viewer.util.FontCache;
 import org.graphstream.ui.view.Camera;
@@ -198,7 +199,7 @@ public abstract class ElementRenderer {
 		StyleConstants.TextStyle textStyle = group.getTextStyle();
 
 		textSize = (int) group.getTextSize().value;
-		textColor = group.getTextColor(0);
+		textColor = ColorManager.getTextColor(group, 0);
 		textFont = FontCache.defaultFontCache().getFont(fontName, textStyle,
 				textSize);
 	}
@@ -252,7 +253,7 @@ public abstract class ElementRenderer {
 	}
 
 	protected Color interpolateColor(StyleGroup group, GraphicElement element) {
-		Color color = group.getFillColor(0);
+		Color color = ColorManager.getFillColor(group, 0);
 
 		int n = group.getFillColorCount();
 
@@ -266,7 +267,7 @@ public abstract class ElementRenderer {
 					value = 1;
 
 				if (value == 1) {
-					color = group.getFillColor(n - 1); // Simplification,
+					color = ColorManager.getFillColor(group, n - 1); // Simplification,
 					// faster.
 				} else if (value != 0) // If value == 0, color is already set
 				// above.
@@ -277,8 +278,8 @@ public abstract class ElementRenderer {
 					div = (value - (div * col)) / div;
 					// div = value / div - col;
 					
-					Color color0 = group.getFillColor(col);
-					Color color1 = group.getFillColor(col + 1);
+					Color color0 = ColorManager.getFillColor(group, col);
+					Color color1 = ColorManager.getFillColor(group, col + 1);
 
 					double red = ((color0.getRed() * (1 - div)) + (color1
 							.getRed() * div)) / 255f;

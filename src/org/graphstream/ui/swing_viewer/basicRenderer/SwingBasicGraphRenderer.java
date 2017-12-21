@@ -40,6 +40,7 @@ import org.graphstream.ui.graphicGraph.StyleGroupSet;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.FillMode;
 import org.graphstream.ui.graphicGraph.stylesheet.Value;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing_viewer.SwingGraphRendererBase;
 import org.graphstream.ui.swing_viewer.util.DefaultCamera;
 import org.graphstream.ui.swing_viewer.util.Graphics2DOutput;
@@ -234,7 +235,7 @@ public class SwingBasicGraphRenderer extends SwingGraphRendererBase {
 
 			rect.setFrame(metrics.lo.x, metrics.lo.y + px1, metrics.size.data[0] - px1, metrics.size.data[1] - px1);
 			g.setStroke(new BasicStroke((float) metrics.lengthToGu(stroke)));
-			g.setColor(graph.getStyle().getStrokeColor(0));
+			g.setColor(ColorManager.getColor(graph.getStyle().getStrokeColor(0)));
 			g.draw(rect);
 		}
 
@@ -276,7 +277,7 @@ public class SwingBasicGraphRenderer extends SwingGraphRendererBase {
 	protected void renderGraphBackground(Graphics2D g) {
 		StyleGroup group = graph.getStyle();
 		if (group.getFillMode() != FillMode.NONE) {
-			g.setColor(group.getFillColor(0));
+			g.setColor(ColorManager.getFillColor(group, 0));
 			g.fillRect(0, 0, (int) camera.getMetrics().viewport[2], (int) camera.getMetrics().viewport[3]);
 		}
 	}
@@ -329,7 +330,7 @@ public class SwingBasicGraphRenderer extends SwingGraphRendererBase {
 	}
 
 	protected void setupSpriteStyle(Graphics2D g, StyleGroup group) {
-		g.setColor(group.getFillColor(0));
+		g.setColor(ColorManager.getFillColor(group, 0));
 	}
 
 	protected void renderSelection(Graphics2D g) {

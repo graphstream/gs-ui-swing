@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 
 import org.graphstream.ui.graphicGraph.stylesheet.Colors;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing.util.ImageCache;
 
 public interface ShapePaint {
@@ -47,7 +48,7 @@ public interface ShapePaint {
 				case GRADIENT_RADIAL:
 					return new ShapeRadialGradientPaint(createColors( style, true ), createFractions( style, true ) );
 				case PLAIN:
-					return new ShapePlainColorPaint(style.getShadowColor(0));
+					return new ShapePlainColorPaint(ColorManager.getShadowColor(style, 0));
 				case NONE:
 					return null;
 				default:
@@ -69,7 +70,7 @@ public interface ShapePaint {
 				case DYN_PLAIN:
 					return new ShapeDynPlainColorPaint(createColors( style, false ));
 				case PLAIN:
-					return new ShapePlainColorPaint(style.getFillColor(0));
+					return new ShapePlainColorPaint(ColorManager.getFillColor(style, 0));
 				case IMAGE_TILED:
 					return new ShapeImageTiledPaint(style.getFillImage());
 				case IMAGE_SCALED:
@@ -131,7 +132,7 @@ public interface ShapePaint {
 		Color[] colors = new Color[n];
 	
 		for (int i = 0 ; i < theColors.size() ; i++) {
-			colors[i] = theColors.get(i) ;
+			colors[i] = ColorManager.getColor(theColors.get(i)) ;
 		}
 
 		return colors ;
@@ -139,7 +140,7 @@ public interface ShapePaint {
 	
 	static Color interpolateColor( Colors colors, double value ) {
 		int n = colors.size();
-		Color c = colors.get(0);
+		Color c = ColorManager.getColor(colors.get(0));
 
 		if( n > 1 ) {
 			double v = value ;
@@ -150,7 +151,7 @@ public interface ShapePaint {
 		
 		
 			if( v == 1 ) {
-				c = colors.get(n-1);	// Simplification, faster.
+				c = ColorManager.getColor(colors.get(n-1));	// Simplification, faster.
 			}
 			else if( v != 0 ) {	// If value == 0, color is already set above.
 				double div = 1.0 / (n-1);
@@ -158,8 +159,8 @@ public interface ShapePaint {
 		
 				div = ( value - (div*col) ) / div ;
 		
-				Color color0 = colors.get( col );
-				Color color1 = colors.get( col + 1 );
+				Color color0 = ColorManager.getColor(colors.get( col ));
+				Color color1 = ColorManager.getColor(colors.get( col + 1 ));
 				double  red    = ( (color0.getRed()  *(1-div)) + (color1.getRed()  *div) ) / 255f;
 				double green  = ( (color0.getGreen()*(1-div)) + (color1.getGreen()*div) ) / 255f;
 				double blue   = ( (color0.getBlue() *(1-div)) + (color1.getBlue() *div) ) / 255f;

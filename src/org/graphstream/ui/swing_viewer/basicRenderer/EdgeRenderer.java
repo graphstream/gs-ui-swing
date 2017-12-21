@@ -41,6 +41,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.ArrowShape;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.FillMode;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.SizeMode;
 import org.graphstream.ui.graphicGraph.stylesheet.Values;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.view.Camera;
 
 import java.awt.BasicStroke;
@@ -67,7 +68,7 @@ public class EdgeRenderer extends ElementRenderer {
 	@Override
 	protected void pushDynStyle(StyleGroup group, Graphics2D g, Camera camera,
 			GraphicElement element) {
-		Color color = group.getFillColor(0);
+		Color color = ColorManager.getFillColor(group, 0);
 
 		if (element != null && group.getFillMode() == FillMode.DYN_PLAIN)
 			color = interpolateColor(group, element);
@@ -93,7 +94,7 @@ public class EdgeRenderer extends ElementRenderer {
 		arrowWidth = camera.getMetrics().lengthToGu(group.getArrowSize(),
 				group.getArrowSize().size() > 1 ? 1 : 0);
 
-		g.setColor(group.getFillColor(0));
+		g.setColor(ColorManager.getFillColor(group, 0));
 		g.setStroke(new BasicStroke((float) width, BasicStroke.CAP_BUTT,
 				BasicStroke.JOIN_BEVEL));
 	}

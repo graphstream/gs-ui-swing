@@ -7,6 +7,7 @@ import org.graphstream.ui.geom.Point2;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.swing.SwingDefaultCamera;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapeStroke;
+import org.graphstream.ui.swing.util.ColorManager;
 
 public class ShadowableLine {
 	/** The shadow paint. */
@@ -45,7 +46,7 @@ public class ShadowableLine {
  		theShadowOff.y = theShadowOff.x ;
  		if( style.getShadowOffset().size() > 1 ) 
  			camera.getMetrics().lengthToGu( style.getShadowOffset(), 1 ) ;
-  	  	theShadowColor = style.getShadowColor( 0 );
+  	  	theShadowColor = ColorManager.getShadowColor( style, 0 );
  		shadowStroke   = ShapeStroke.strokeForConnectorFill( style );
  	}	
 }

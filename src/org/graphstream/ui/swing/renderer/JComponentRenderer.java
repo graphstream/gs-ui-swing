@@ -29,6 +29,7 @@ import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.swing.SwingDefaultCamera;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
 import org.graphstream.ui.swing.renderer.shape.swing.basicShapes.SquareShape;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing.util.FontCache;
 import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.view.util.GraphMetrics;
@@ -309,7 +310,7 @@ public class JComponentRenderer extends StyleRenderer {
 			int width = (int)camera.getMetrics().lengthToPx( group.getStrokeWidth() );
 			
 			switch (group.getStrokeMode()) {
-				case PLAIN: return BorderFactory.createLineBorder( group.getStrokeColor( 0 ), width );
+				case PLAIN: return BorderFactory.createLineBorder( ColorManager.getStrokeColor( group, 0 ), width );
 				case DOTS: throw new RuntimeException( "TODO create dots and dashes borders for component to respect stroke-mode." );
 				case DASHES: throw new RuntimeException( "TODO create dots and dashes borders for component to respect stroke-mode." );
 				default:	return null ;
@@ -374,7 +375,7 @@ public class JComponentRenderer extends StyleRenderer {
 				font = FontCache.getFont( group.getTextFont(), group.getTextStyle(), (int)group.getTextSize().value );
            
 			comp.setFont( font );
-			comp.setForeground( group.getTextColor( 0 ) );
+			comp.setForeground( ColorManager.getTextColor( group, 0 ) );
 		}
 		
 		@Override
@@ -445,7 +446,7 @@ public class JComponentRenderer extends StyleRenderer {
 				font = FontCache.getFont( group.getTextFont(), group.getTextStyle(), (int)group.getTextSize().value );
            
 			comp.setFont( font );
-			comp.setForeground( group.getTextColor( 0 ) );
+			comp.setForeground( ColorManager.getTextColor( group, 0 ) );
 		}
  		
  		@Override

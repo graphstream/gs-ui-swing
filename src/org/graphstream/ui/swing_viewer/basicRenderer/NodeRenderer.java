@@ -39,6 +39,7 @@ import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.GraphicNode;
 import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.graphicGraph.stylesheet.Values;
+import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.FillMode;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.SizeMode;
@@ -64,7 +65,7 @@ public class NodeRenderer extends ElementRenderer {
 	@Override
 	protected void pushDynStyle(StyleGroup group, Graphics2D g, Camera camera,
 			GraphicElement element) {
-		Color color = group.getFillColor(0);
+		Color color = ColorManager.getFillColor(group, 0);
 
 		if (element != null && group.getFillMode() == FillMode.DYN_PLAIN)
 			color = interpolateColor(group, element);
@@ -98,7 +99,7 @@ public class NodeRenderer extends ElementRenderer {
 		w2 = width / 2;
 		h2 = height / 2;
 
-		Color color = group.getFillColor(0);
+		Color color = ColorManager.getFillColor(group, 0);
 
 		g.setColor(color);
 	}

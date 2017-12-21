@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.swing.util.ColorManager;
 
 public class FillableMulticolored {
 	public Color[] fillColors = null ;
@@ -16,7 +17,7 @@ public class FillableMulticolored {
 		}
 		
 		for (int i = 0 ; i < count ; i++) {
-			fillColors[i] = style.getFillColor(i);
+			fillColors[i] = ColorManager.getFillColor(style, i);
 		}
 	}
 }

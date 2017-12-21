@@ -11,6 +11,7 @@ import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.swing.SwingDefaultCamera;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapePaint;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapeStroke;
+import org.graphstream.ui.swing.util.ColorManager;
 
 public class FillableLine {
 	ShapeStroke fillStroke = null ;
@@ -39,7 +40,7 @@ public class FillableLine {
 	public void configureFillableLineForGroup(Backend bck, Style style, SwingDefaultCamera camera, double theSize) {
 		fillStroke = ShapeStroke.strokeForConnectorFill( style );
   	  	plainFast = (style.getSizeMode() == StyleConstants.SizeMode.NORMAL); 
-		theFillColor = style.getFillColor(0);
+		theFillColor = ColorManager.getFillColor(style, 0);
 		bck.graphics2D().setColor(theFillColor);
 		if(fillStroke != null)
 			bck.graphics2D().setStroke(fillStroke.stroke(theSize));
@@ -59,7 +60,7 @@ public class FillableLine {
   	  		}
   	  		else {
   	  			theFillPercent = 0f;
-  	  			theFillColor = style.getFillColor(0);
+  	  			theFillColor = ColorManager.getFillColor(style, 0);
   	  		}
 	  	  	
   	  		plainFast = false;
