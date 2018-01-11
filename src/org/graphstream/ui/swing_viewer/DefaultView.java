@@ -41,6 +41,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.util.EnumSet;
 
@@ -239,8 +240,15 @@ public class DefaultView extends ViewPanel implements WindowListener, ComponentL
 	}
 
 	public void render(Graphics2D g) {
-		renderer.render(g, getX(), getY(), getWidth(), getHeight());
-
+		// this might only be needed to fix a bug in JetBrains IntelliJ:
+		// Even if this JComponent is part of a complex AWT layout, getX() and getY() always returns (0,0) - even if
+		// the Graphics2D tranformation is not the identity (e.g. performs a translation). This leads to wrong
+		// calculations in the camera/renderer, thus we must obtain the transformed "origin" to be consistent.
+		Point2D.Double origin = new Point2D.Double(0,0);
+		Point2D.Double topLeft = new Point2D.Double();
+		g.getTransform().transform(origin, topLeft);
+		
+		renderer.render(g, (int)topLeft.getX(), (int)topLeft.getY(), getWidth(), getHeight());
 		String screenshot = (String) graph.getLabel("ui.screenshot");
 
 		if (screenshot != null) {

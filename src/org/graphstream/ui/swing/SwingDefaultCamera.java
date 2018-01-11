@@ -89,6 +89,9 @@ public class SwingDefaultCamera implements Camera {
   	  * for nodes visibility. This allows to do it only once per rendering step. Hence the storage
   	  * of the invisible nodes here. */
   	protected HashSet<String> nodeInvisible = new HashSet<>();
+  	
+  	/** Which sprite is visible. */
+  	protected HashSet<String> spriteInvisible = new HashSet<>();
   			
   	/** The graph view port, if any. The graph view port is a view inside the graph space. It allows
   	  * to compute the view according to a specified area of the graph space instead of the graph
@@ -437,6 +440,7 @@ public class SwingDefaultCamera implements Camera {
     
     public void checkVisibility(GraphicGraph graph) {
 		nodeInvisible.clear();
+		spriteInvisible.clear();
 		
 		if( !autoFit ) {
 			// If autoFit is on, we know the whole graph is visible anyway.
@@ -451,6 +455,14 @@ public class SwingDefaultCamera implements Camera {
 				
 				if (!visible) {
 					nodeInvisible.add(node.getId()) ;
+				}
+			});
+			
+			graph.sprites().forEach(sprite -> {
+				boolean visible = isSpriteIn(sprite, X, Y, X+W, Y+H) && (!sprite.hidden) ;
+				
+				if(! visible) {
+					spriteInvisible.add(sprite.getId());
 				}
 			});
 		}
@@ -757,7 +769,7 @@ public class SwingDefaultCamera implements Camera {
 			case EDGE:
 				return isEdgeVisible((GraphicEdge) element);
 			case SPRITE:
-				return isSpriteVisible((GraphicSprite) element);
+				return !spriteInvisible.contains(element.getId());
 			default:
 				return false;
 			}
@@ -779,31 +791,28 @@ public class SwingDefaultCamera implements Camera {
  	  * @param Y2 The max ordinate of the area.
  	  * @return True if the node lies in the given area. */
 	public boolean isSpriteIn(GraphicSprite sprite, double X1, double Y1, double X2, double Y2) {
-		if ( sprite.isAttachedToNode() && (nodeInvisible.contains(sprite.getNodeAttachment().getId()))) {
-			return false ;
-		}
-		else if ( sprite.isAttachedToEdge() && ! isEdgeVisible(sprite.getEdgeAttachment())) {
-			return false ;
-		}
-		else {
-			Values size = sprite.getStyle().getSize() ;
-			double w2 = metrics.lengthToPx(size, 0) / 2 ;
-			double h2 = w2 ;
-			if ( size.size() > 1 )
-				h2 = metrics.lengthToPx(size, 1) / 2 ;
-			
-			Point3 src = spritePositionPx(sprite);
-			double x1 = src.x - w2 ;
-			double x2 = src.x + w2 ;
-			double y1 = src.y - h2 ;
-			double y2 = src.y + h2 ;
-			
-			if( x2 < X1 ) return false;
-  			else if( y2 < Y1 ) return false;
-  			else if( x1 > X2 ) return false;
-  			else if( y1 > Y2 ) return false;
-  			else return true ;
-		}
+		Values size = getNodeOrSpriteSize(sprite);
+		double w2   = metrics.lengthToPx( size, 0 ) / 2;
+		double h2   = w2 ;
+		if( size.size() > 1 ) 
+			h2 = metrics.lengthToPx( size, 1 )/2 ;
+
+		//val src  = new Point3()
+		//getSpritePosition(sprite, src, Units.GU)
+		//bck.transform(src)
+		
+		Point3 src = spritePositionPx(sprite);
+		double x1 = src.x - w2 ;
+		double x2 = src.x + w2 ;
+		double y1 = src.y - h2 ;
+		double y2 = src.y + h2 ;
+		
+		if( x2 < X1 ) return false;
+		else if( y2 < Y1 ) return false;
+		else if( x1 > X2 ) return false;
+		else if( y1 > Y2 ) return false;
+		else return true ;
+		
 	}
 	
 	/** Check if an edge is visible in the current view port.
@@ -839,10 +848,13 @@ public class SwingDefaultCamera implements Camera {
 	 */
 	@Override
 	public GraphicElement findGraphicElementAt(GraphicGraph graph, EnumSet<InteractiveElement> types, double x, double y) {
+		double xT = x + metrics.viewport[0];
+		double yT = y + metrics.viewport[1];
+		
 		if (types.contains(InteractiveElement.NODE)) {
 			Optional<Node> node = graph
 				.nodes()
-				.filter(n ->nodeContains((GraphicElement) n, x, y))
+				.filter(n ->nodeContains((GraphicElement) n, xT, yT))
 				.findFirst();
 			if(node.isPresent()) {
 				return (GraphicElement) node.get();
@@ -851,7 +863,7 @@ public class SwingDefaultCamera implements Camera {
 		if (types.contains(InteractiveElement.EDGE)) {
 			Optional<Edge> edge = graph
 				.edges()
-				.filter(e ->edgeContains((GraphicElement) e, x, y))
+				.filter(e ->edgeContains((GraphicElement) e, xT, yT))
 				.findFirst();
 			if(edge.isPresent()) {
 				return (GraphicElement) edge.get();
@@ -860,7 +872,7 @@ public class SwingDefaultCamera implements Camera {
 		if (types.contains(InteractiveElement.SPRITE)) {
 			Optional<GraphicSprite> sprite = graph
 				.sprites()
-				.filter(s ->spriteContains(s, x, y))
+				.filter(s ->spriteContains(s, xT, yT))
 				.findFirst();
 			if(sprite.isPresent()) {
 				return (GraphicElement) sprite.get();
@@ -876,6 +888,13 @@ public class SwingDefaultCamera implements Camera {
 	@Override
 	public Collection<GraphicElement> allGraphicElementsIn(GraphicGraph graph, EnumSet<InteractiveElement> types,
 			double x1, double y1, double x2, double y2) {
+		// add offset of viewport, because find(...) is always called without offset
+		// in most cases the offset of the viewport is 0 anyway
+		double x1T = x1 + metrics.viewport[0];
+		double y1T = y1 + metrics.viewport[1];
+		double x2T = x2 + metrics.viewport[0];
+		double y2T = y2 + metrics.viewport[1];
+		
 		List<GraphicElement> elts = new ArrayList<GraphicElement>();
 
 		Stream nodeStream = null;
@@ -885,7 +904,7 @@ public class SwingDefaultCamera implements Camera {
 		if (types.contains(InteractiveElement.NODE)) {
 
 			nodeStream = graph.nodes()
-					.filter(n -> isNodeIn((GraphicNode) n, x1, y1, x2, y2));
+					.filter(n -> isNodeIn((GraphicNode) n, x1T, y1T, x2T, y2T));
 		}
 		else {
 			nodeStream = Stream.empty();
@@ -893,7 +912,7 @@ public class SwingDefaultCamera implements Camera {
 		
 		if (types.contains(InteractiveElement.EDGE)) {
 			edgeStream = graph.edges()
-					.filter(e -> isEdgeIn((GraphicEdge) e, x1, y1, x2, y2));
+					.filter(e -> isEdgeIn((GraphicEdge) e, x1T, y1T, x2T, y2T));
 		}
 		else {
 			edgeStream = Stream.empty();
@@ -901,7 +920,7 @@ public class SwingDefaultCamera implements Camera {
 		
 		if (types.contains(InteractiveElement.SPRITE)) {
 			spriteStream = graph.sprites()
-					.filter(e -> isSpriteIn((GraphicSprite) e, x1, y1, x2, y2));
+					.filter(e -> isSpriteIn((GraphicSprite) e, x1T, y1T, x2T, y2T));
 		}
 		else {
 			spriteStream = Stream.empty();
