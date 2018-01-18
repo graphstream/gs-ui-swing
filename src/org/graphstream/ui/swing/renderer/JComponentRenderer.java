@@ -26,7 +26,7 @@ import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.graphicGraph.stylesheet.Values;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
 import org.graphstream.ui.swing.renderer.shape.swing.basicShapes.SquareShape;
 import org.graphstream.ui.swing.util.ColorManager;
@@ -63,7 +63,7 @@ public class JComponentRenderer extends StyleRenderer {
 	}
 
 	@Override
-	public void setupRenderingPass(Backend bck, SwingDefaultCamera camera, boolean forShadow) {
+	public void setupRenderingPass(Backend bck, DefaultCamera2D camera, boolean forShadow) {
 		GraphMetrics metrics = camera.getMetrics();
 		Graphics2D g = bck.graphics2D();
 
@@ -83,7 +83,7 @@ public class JComponentRenderer extends StyleRenderer {
 	}
 
 	@Override
-	public void pushStyle(Backend bck, SwingDefaultCamera camera, boolean forShadow) {
+	public void pushStyle(Backend bck, DefaultCamera2D camera, boolean forShadow) {
 		if(shadow != null) {
 			shadow.configureForGroup(bck, group, camera);
 //		  	shadow.configure(bck, group, camera, null)
@@ -92,10 +92,10 @@ public class JComponentRenderer extends StyleRenderer {
 	}
 
 	@Override
-	public void pushDynStyle(Backend bck, SwingDefaultCamera camera, GraphicElement element) {}
+	public void pushDynStyle(Backend bck, DefaultCamera2D camera, GraphicElement element) {}
 
 	@Override
-	public void renderElement(Backend bck, SwingDefaultCamera camera, GraphicElement element) {
+	public void renderElement(Backend bck, DefaultCamera2D camera, GraphicElement element) {
 		ComponentElement ce = getOrEquipWithJComponent(element);
 
 		ce.setVisible(true);
@@ -110,7 +110,7 @@ public class JComponentRenderer extends StyleRenderer {
 	}												// and therefore must change the style.
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element) {
 		if(shadow != null) {
 //			val pos = new Point2D.Double( element.getX, element.getY )
 //
@@ -126,12 +126,12 @@ public class JComponentRenderer extends StyleRenderer {
 	}
 
 	@Override
-	public void elementInvisible(Backend bck, SwingDefaultCamera camera, GraphicElement element) {
+	public void elementInvisible(Backend bck, DefaultCamera2D camera, GraphicElement element) {
 		getOrEquipWithJComponent(element).setVisible(false);		
 	}
 
 	@Override
-	public void endRenderingPass(Backend bck, SwingDefaultCamera camera, boolean forShadow) {
+	public void endRenderingPass(Backend bck, DefaultCamera2D camera, boolean forShadow) {
 		bck.graphics2D().setRenderingHint(RenderingHints.KEY_ANTIALIASING, antialiasSetting);
 	}
 	
@@ -176,7 +176,7 @@ public class JComponentRenderer extends StyleRenderer {
 		return ce;
 	}
 	
-	public void checkStyle(SwingDefaultCamera camera, ComponentElement ce, boolean force) {
+	public void checkStyle(DefaultCamera2D camera, ComponentElement ce, boolean force) {
 		if(force) {
 			ce.checkIcon(camera);
 			ce.checkBorder(camera, force);
@@ -236,7 +236,7 @@ public class JComponentRenderer extends StyleRenderer {
 		/** Set or reset the label of the component. */
 		public abstract void updateLabel();
 		
-		public void setBounds(int x, int y, int width, int height, SwingDefaultCamera camera) {
+		public void setBounds(int x, int y, int width, int height, DefaultCamera2D camera) {
 			setBounds(x, y, width, height);
 			
 			int borderWidth = 0;
@@ -266,7 +266,7 @@ public class JComponentRenderer extends StyleRenderer {
 		 * Check the swing component follows the graph element position.
 		 * @param camera The transformation from GU to PX.
 		 */
-		public void updatePosition(SwingDefaultCamera camera) {
+		public void updatePosition(DefaultCamera2D camera) {
 			if ( element instanceof GraphicNode) {
 				positionNodeComponent( (GraphicNode)element, camera);
 			}
@@ -279,20 +279,20 @@ public class JComponentRenderer extends StyleRenderer {
 		}
 
 	// Command -- Utility, positioning
-		private void positionNodeComponent(GraphicNode node, SwingDefaultCamera camera) {
+		private void positionNodeComponent(GraphicNode node, DefaultCamera2D camera) {
 			Point3 pos = camera.transformGuToPx(node.getX(), node.getY(), 0);
 					
 			setBounds((int)(pos.x-(width/2)), (int)(pos.y-(height/2)), width, height, camera);
 		}
 		
-		private void positionSpriteComponent(GraphicSprite sprite, SwingDefaultCamera camera) {
+		private void positionSpriteComponent(GraphicSprite sprite, DefaultCamera2D camera) {
 			Point3 pos = camera.getSpritePosition( sprite, new Point3(), StyleConstants.Units.PX);
 			
 			setBounds((int)(pos.x-(width/2)), (int)(pos.y-(height/2)), width, height, camera);
 		}
 	
 	// Command -- Utility, applying CSS style to Swing components
-		public void checkBorder( SwingDefaultCamera camera, boolean force ) {
+		public void checkBorder( DefaultCamera2D camera, boolean force ) {
 			if(force) {
 				if(group.getStrokeMode() != StyleConstants.StrokeMode.NONE && group.getStrokeWidth().value > 0)
 					setBorder(createBorder(camera));
@@ -304,9 +304,9 @@ public class JComponentRenderer extends StyleRenderer {
 			}
 		}
 
-		private void updateBorder(SwingDefaultCamera camera) {}
+		private void updateBorder(DefaultCamera2D camera) {}
 
-		private Border createBorder(SwingDefaultCamera camera) {
+		private Border createBorder(DefaultCamera2D camera) {
 			int width = (int)camera.getMetrics().lengthToPx( group.getStrokeWidth() );
 			
 			switch (group.getStrokeMode()) {
@@ -317,7 +317,7 @@ public class JComponentRenderer extends StyleRenderer {
 			}
 		}
 		
-		public abstract void checkIcon(SwingDefaultCamera camera) ;
+		public abstract void checkIcon(DefaultCamera2D camera) ;
  	}
  	
  	class TextFieldComponentElement extends ComponentElement implements ActionListener {
@@ -385,7 +385,7 @@ public class JComponentRenderer extends StyleRenderer {
 		}
 		
 		@Override
-		public void checkIcon(SwingDefaultCamera camera) {}
+		public void checkIcon(DefaultCamera2D camera) {}
  	}
  	
  	class ButtonComponentElement extends ComponentElement implements ActionListener {
@@ -458,7 +458,7 @@ public class JComponentRenderer extends StyleRenderer {
  		}
  		
  		@Override
- 		public void checkIcon(SwingDefaultCamera camera) {
+ 		public void checkIcon(DefaultCamera2D camera) {
  			if( group.getIconMode() != StyleConstants.IconMode.NONE ) {
  				String url   = group.getIcon();
  				BufferedImage image = ImageCache.loadImage( url );

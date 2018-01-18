@@ -7,7 +7,7 @@ import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapePaint;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapePaint.ShapeAreaPaint;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapePaint.ShapeColorPaint;
@@ -29,7 +29,7 @@ public class Fillable {
 	 * @param g The Java2D graphics.
 	 * @param dynColor The value between 0 and 1 allowing to know the dynamic plain color, if any.
 	 * @param shape The awt shape to fill. */
-	public void fill(Graphics2D g, double dynColor, Color optColor, java.awt.Shape shape, SwingDefaultCamera camera) {
+	public void fill(Graphics2D g, double dynColor, Color optColor, java.awt.Shape shape, DefaultCamera2D camera) {
 		if(plainFast) {
 			g.setColor(theFillColor);
 			g.fill(shape);
@@ -49,10 +49,10 @@ public class Fillable {
 	/** Fill the shape.
 	 * @param g The Java2D graphics.
 	 * @param shape The awt shape to fill. */
- 	public void fill(Graphics2D g, java.awt.Shape shape, SwingDefaultCamera camera) { fill( g, theFillPercent, theFillColor, shape, camera ); }
+ 	public void fill(Graphics2D g, java.awt.Shape shape, DefaultCamera2D camera) { fill( g, theFillPercent, theFillColor, shape, camera ); }
 
     /** Configure all static parts needed to fill the shape. */
- 	public void configureFillableForGroup(Backend bck, Style style, SwingDefaultCamera camera ) {
+ 	public void configureFillableForGroup(Backend bck, Style style, DefaultCamera2D camera ) {
  		fillPaint = ShapePaint.apply(style);
  
  		if(fillPaint instanceof ShapePlainColorPaint) {
@@ -69,7 +69,7 @@ public class Fillable {
  	}
  	
     /** Configure the dynamic parts needed to fill the shape. */
-  	public void configureFillableForElement( Style style, SwingDefaultCamera camera, GraphicElement element ) {
+  	public void configureFillableForElement( Style style, DefaultCamera2D camera, GraphicElement element ) {
   	  	if( style.getFillMode() == StyleConstants.FillMode.DYN_PLAIN && element != null ) {
   	  		if ( element.getAttribute( "ui.color" ) instanceof Number ) {
   	  			theFillPercent = (float)((Number)element.getAttribute( "ui.color" ));

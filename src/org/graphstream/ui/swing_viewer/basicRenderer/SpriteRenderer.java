@@ -45,7 +45,7 @@ import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.FillMode;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.SizeMode;
 import org.graphstream.ui.swing_viewer.util.DefaultCamera;
-import org.graphstream.ui.view.Camera;
+import org.graphstream.ui.view.camera.Camera;
 import org.graphstream.ui.view.util.GraphMetrics;
 
 public class SpriteRenderer extends ElementRenderer {

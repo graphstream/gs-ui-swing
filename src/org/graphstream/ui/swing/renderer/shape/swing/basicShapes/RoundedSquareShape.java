@@ -3,14 +3,14 @@ package org.graphstream.ui.swing.renderer.shape.swing.basicShapes;
 import java.awt.geom.RoundRectangle2D;
 
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.shape.swing.baseShapes.RectangularAreaShape;
 
 public class RoundedSquareShape extends RectangularAreaShape {
 	RoundRectangle2D.Double theShape = new RoundRectangle2D.Double();
 	
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		double w = area.theSize.x ;
 		double h = area.theSize.x ;
 		double r = h/8 ;
@@ -20,7 +20,7 @@ public class RoundedSquareShape extends RectangularAreaShape {
 	}
 	
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		double x = area.theCenter.x + shadowable.theShadowOff.x;
 		double y = area.theCenter.y + shadowable.theShadowOff.y;
 		double w = area.theSize.x + shadowable.theShadowWidth.x * 2;

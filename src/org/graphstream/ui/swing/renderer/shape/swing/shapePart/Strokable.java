@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapeStroke;
 
 public class Strokable {
@@ -27,7 +27,7 @@ public class Strokable {
 	}
 	
  	/** Configure all the static parts needed to stroke the shape. */
- 	public void configureStrokableForGroup( Style style, SwingDefaultCamera camera ) {
+ 	public void configureStrokableForGroup( Style style, DefaultCamera2D camera ) {
 		theStrokeWidth = camera.getMetrics().lengthToGu( style.getStrokeWidth() );
 		/*if( strokeColor == null )*/ strokeColor = ShapeStroke.strokeColor( style );
 		/*if( theStroke   == null )*/ theStroke   = ShapeStroke.strokeForArea( style );

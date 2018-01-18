@@ -3,7 +3,7 @@ package org.graphstream.ui.swing.renderer.shape.swing.baseShapes;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.AreaSkeleton;
 import org.graphstream.ui.swing.renderer.Skeleton;
 import org.graphstream.ui.swing.renderer.shape.Decorable;
@@ -28,7 +28,7 @@ public abstract class AreaShape extends Decorable implements Shape {
 	}
 	
 	
-	public void configureForGroup(Backend bck, Style style, SwingDefaultCamera camera) {
+	public void configureForGroup(Backend bck, Style style, DefaultCamera2D camera) {
  	  	fillable.configureFillableForGroup(bck, style, camera);
  	  	strokable.configureStrokableForGroup(style, camera);
  	  	shadowable.configureShadowableForGroup(style, camera);
@@ -36,7 +36,7 @@ public abstract class AreaShape extends Decorable implements Shape {
  	  	area.configureAreaForGroup(style, camera);
  	}
  
-	public void configureForElement(Backend bck, GraphicElement element, Skeleton skel, SwingDefaultCamera camera) {
+	public void configureForElement(Backend bck, GraphicElement element, Skeleton skel, DefaultCamera2D camera) {
 		fillable.configureFillableForElement(element.getStyle(), camera, element);
 		configureDecorableForElement(bck, camera, element, skel);
 		area.configureAreaForElement(bck, camera, (AreaSkeleton)skel, element, theDecor);

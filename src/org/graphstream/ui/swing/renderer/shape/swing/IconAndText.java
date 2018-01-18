@@ -17,7 +17,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.TextStyle;
 import org.graphstream.ui.graphicGraph.stylesheet.Value;
 import org.graphstream.ui.graphicGraph.stylesheet.Values;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing.util.FontCache;
 import org.graphstream.ui.swing.util.ImageCache;
@@ -48,7 +48,7 @@ public abstract class IconAndText {
 		this.pady = pady ;
 	}
 	
-	public static IconAndText apply(Style style, SwingDefaultCamera camera, GraphicElement element) {
+	public static IconAndText apply(Style style, DefaultCamera2D camera, GraphicElement element) {
 		BufferedImage icon = null ;
 		TextBox text = TextBox.apply(camera, style);
 		Values padd = style.getPadding();
@@ -96,7 +96,7 @@ public abstract class IconAndText {
 		}
 	}
 	
-	public abstract void render(Backend backend, SwingDefaultCamera camera, double xLeft, double yBottom) ;
+	public abstract void render(Backend backend, DefaultCamera2D camera, double xLeft, double yBottom) ;
 	public abstract void setIcon(Backend backend, String url) ;
 	public abstract void setText(Backend backend, String text);
 	public abstract double getWidth();
@@ -127,7 +127,7 @@ class IconAndTextOnlyText extends IconAndText {
 	
 	public void setIcon(Backend backend, String url) {}
 	
-	public void render(Backend backend, SwingDefaultCamera camera, double xLeft, double yBottom) {
+	public void render(Backend backend, DefaultCamera2D camera, double xLeft, double yBottom) {
 		this.text.render(backend, offx+xLeft, offy+yBottom - descent);
 	}
 }
@@ -158,7 +158,7 @@ class IconAtLeftAndText extends IconAndText {
 		}
 	}
 	
-	public void render(Backend backend, SwingDefaultCamera camera, double xLeft, double yBottom) {
+	public void render(Backend backend, DefaultCamera2D camera, double xLeft, double yBottom) {
 		Graphics2D g = backend.graphics2D();
 		g.drawImage(icon, new AffineTransform(1f, 0f, 0f, 1f, offx+xLeft, offy+(yBottom-(getHeight()/2))-(icon.getHeight()/2)+pady), null);
 		double th = text.getAscent() + text.getDescent();
@@ -200,7 +200,7 @@ abstract class TextBox {
 	 */
 	static FontRenderContext defaultFontRenderContext = new FontRenderContext(new AffineTransform(), true, true);
 	
-	public static TextBox apply(SwingDefaultCamera camera, Style style) {
+	public static TextBox apply(DefaultCamera2D camera, Style style) {
 		String fontName  = style.getTextFont();
 		TextStyle fontStyle = style.getTextStyle();
 		Value fontSize  = style.getTextSize();

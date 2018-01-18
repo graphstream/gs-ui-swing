@@ -9,7 +9,7 @@ import org.graphstream.ui.geom.Vector2;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.Skeleton;
 import org.graphstream.ui.swing.renderer.shape.Connector;
 import org.graphstream.ui.swing.renderer.shape.swing.baseShapes.AreaOnConnectorShape;
@@ -21,23 +21,23 @@ public class CircleOnEdge extends AreaOnConnectorShape {
 	Ellipse2D.Double theShape = new Ellipse2D.Double();
 
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		make( false, camera );
 	}
 
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		make( true, camera );
 	}
 	
-	private void make(boolean forShadow, SwingDefaultCamera camera) {
+	private void make(boolean forShadow, DefaultCamera2D camera) {
 		if( theConnector.skel.isCurve() )
 			makeOnCurve( forShadow, camera );
 		else 
 			makeOnLine(  forShadow, camera );
 	}
 	
-	private void makeOnCurve(boolean forShadow, SwingDefaultCamera camera) {
+	private void makeOnCurve(boolean forShadow, DefaultCamera2D camera) {
 		Tuple<Point2, Double> tuple = CubicCurve.approxIntersectionPointOnCurve( theEdge, theConnector, camera );
 		Point2 p1 = tuple.x ;
 		double t = tuple.y ;
@@ -53,7 +53,7 @@ public class CircleOnEdge extends AreaOnConnectorShape {
 		theShape.setFrame( (p1.x-dir.x())-(theSize.x/2), (p1.y-dir.y())-(theSize.y/2), theSize.x, theSize.y );			
 	}
 
-	private void makeOnLine(boolean forShadow, SwingDefaultCamera camera) {
+	private void makeOnLine(boolean forShadow, DefaultCamera2D camera) {
 		double off = ShapeUtil.evalTargetRadius2D( theEdge, camera ) + ((theSize.x+theSize.y)/4);
 		Vector2 theDirection = new Vector2(
 				theConnector.toPos().x - theConnector.fromPos().x,
@@ -79,7 +79,7 @@ public class CircleOnEdge extends AreaOnConnectorShape {
 	}
 
 	@Override
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		Graphics2D g = bck.graphics2D();
 		make( false, camera );
 		strokable.stroke( g, theShape );
@@ -94,7 +94,7 @@ public class CircleOnEdge extends AreaOnConnectorShape {
 	}
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		make( true, camera );
 		shadowable.cast(bck.graphics2D(), theShape );
 	}

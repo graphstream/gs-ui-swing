@@ -6,7 +6,7 @@ import java.awt.geom.Path2D;
 import org.graphstream.ui.geom.Point3;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.Skeleton;
 import org.graphstream.ui.swing.renderer.shape.swing.baseShapes.LineConnectorShape;
 
@@ -14,25 +14,25 @@ public class HorizontalSquareEdgeShape extends LineConnectorShape {
 	Path2D.Double theShape = new Path2D.Double();
 
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		make(camera, 0, 0, 0, 0);
 	}
 	
-	private void make(SwingDefaultCamera camera, double sox, double soy, double swx, double swy) {
+	private void make(DefaultCamera2D camera, double sox, double soy, double swx, double swy) {
 		if (skel.multi() > 1 || skel.isLoop()) // is a loop or a multi edge
 			makeMultiOrLoop(camera, sox, soy, swx, swy);
         else
         	makeSingle(camera, sox, soy, swx, swy); // is a single edge.
 	}
 
-	private void makeMultiOrLoop(SwingDefaultCamera camera, double sox, double soy, double swx, double swy) {
+	private void makeMultiOrLoop(DefaultCamera2D camera, double sox, double soy, double swx, double swy) {
 		if (skel.isLoop())
             makeLoop(camera, sox, soy, swx, swy);
 		else
 			makeMulti(camera, sox, soy, swx, swy);
 	}
 
-	private void makeLoop(SwingDefaultCamera camera, double sox, double soy, double swx, double swy) {
+	private void makeLoop(DefaultCamera2D camera, double sox, double soy, double swx, double swy) {
 		double fromx = skel.apply(0).x + sox;
 		double fromy = skel.apply(0).y + soy;
 		double tox = skel.apply(3).x + sox;
@@ -47,7 +47,7 @@ public class HorizontalSquareEdgeShape extends LineConnectorShape {
 	    theShape.curveTo(c1x, c1y, c2x, c2y, tox, toy);
 	}
 
-	private void makeMulti(SwingDefaultCamera camera, double sox, double soy, double swx, double swy) {
+	private void makeMulti(DefaultCamera2D camera, double sox, double soy, double swx, double swy) {
 		double fromx = skel.apply(0).x + sox;
 		double fromy = skel.apply(0).y + soy;
 		double tox = skel.apply(3).x + sox;
@@ -62,7 +62,7 @@ public class HorizontalSquareEdgeShape extends LineConnectorShape {
 		theShape.curveTo(c1x, c1y, c2x, c2y, tox, toy);		
 	}
 
-	private void makeSingle(SwingDefaultCamera camera, double sox, double soy, double swx, double swy) {
+	private void makeSingle(DefaultCamera2D camera, double sox, double soy, double swx, double swy) {
 		Point3 from = new Point3(skel.from().x + sox, skel.from().y + soy, 0);
 		Point3 to = new Point3(skel.to().x + sox, skel.to().y + soy, 0);
         double size = (theSourceSize.x + theTargetSize.x);
@@ -142,7 +142,7 @@ public class HorizontalSquareEdgeShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		if (skel.isCurve())
 			makeMultiOrLoop(camera, shadowableLine.theShadowOff.x, shadowableLine.theShadowOff.y, shadowableLine.theShadowWidth, shadowableLine.theShadowWidth);
         else 
@@ -150,7 +150,7 @@ public class HorizontalSquareEdgeShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		Graphics2D g = bck.graphics2D();
 		make(bck, camera);
 		strokableLine.stroke(g, theShape);
@@ -159,7 +159,7 @@ public class HorizontalSquareEdgeShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		makeShadow(bck, camera);
 		shadowableLine.cast(bck.graphics2D(), theShape);
 	}

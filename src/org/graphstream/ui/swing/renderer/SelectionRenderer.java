@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
 
 import org.graphstream.ui.graphicGraph.GraphicGraph;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.util.Selection;
 
 public class SelectionRenderer {
@@ -27,7 +27,7 @@ public class SelectionRenderer {
 		this.graph = graph ;
 	}
 	
-	public void render(Backend bck, SwingDefaultCamera camera, int panelWidth, int panelHeight) {
+	public void render(Backend bck, DefaultCamera2D camera, int panelWidth, int panelHeight) {
 	    // XXX
 	    // TODO make this an abstract class whose implementation are create by the back-end
 	    // XXX

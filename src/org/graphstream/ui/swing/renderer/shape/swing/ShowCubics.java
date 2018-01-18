@@ -8,7 +8,7 @@ import java.awt.geom.Line2D;
 
 import org.graphstream.ui.geom.Point3;
 import org.graphstream.ui.swing.renderer.ConnectorSkeleton;
-import org.graphstream.ui.view.Camera;
+import org.graphstream.ui.view.camera.Camera;
 
 /** Utility trait to display cubics Bézier curves control polygons. */
 public class ShowCubics {

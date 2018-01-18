@@ -1,13 +1,13 @@
 package org.graphstream.ui.swing.renderer.shape.swing.basicShapes;
 
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.shape.swing.baseShapes.PolygonalShape;
 
 public class TriangleShape extends PolygonalShape {
 
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		double x  = area.theCenter.x;
 		double y  = area.theCenter.y;
 		double w2 = area.theSize.x / 2;
@@ -21,7 +21,7 @@ public class TriangleShape extends PolygonalShape {
 	}
 
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		double x  = area.theCenter.x + shadowable.theShadowOff.x;
 		double y  = area.theCenter.y + shadowable.theShadowOff.y;
 		double w2 = ( area.theSize.x + shadowable.theShadowWidth.x ) / 2;

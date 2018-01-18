@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 import org.graphstream.ui.geom.Point2;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapeStroke;
 import org.graphstream.ui.swing.util.ColorManager;
 
@@ -38,7 +38,7 @@ public class ShadowableLine {
    	}
  
     /** Configure all the static parts needed to cast the shadow of the shape. */
- 	public void configureShadowableLineForGroup( Style style, SwingDefaultCamera camera) {
+ 	public void configureShadowableLineForGroup( Style style, DefaultCamera2D camera) {
  		theShadowWidth = camera.getMetrics().lengthToGu( style.getSize(), 0 ) +
  			camera.getMetrics().lengthToGu( style.getShadowWidth() ) +
  			camera.getMetrics().lengthToGu( style.getStrokeWidth() ) ;

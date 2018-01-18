@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.AreaSkeleton;
 import org.graphstream.ui.swing.renderer.Skeleton;
 import org.graphstream.ui.swing.renderer.shape.Decorable;
@@ -41,7 +41,7 @@ public class PieChartShape extends FillableMulticolored implements Shape, Attrib
 	}
 	
 	@Override
-	public void configureForGroup(Backend backend, Style style, SwingDefaultCamera camera) {
+	public void configureForGroup(Backend backend, Style style, DefaultCamera2D camera) {
 		area.configureAreaForGroup(style, camera);
         configureFillableMultiColoredForGroup(style, camera);
         strokabe.configureStrokableForGroup(style, camera);
@@ -50,23 +50,23 @@ public class PieChartShape extends FillableMulticolored implements Shape, Attrib
 	}
 	@Override
 	public void configureForElement(Backend bck, GraphicElement element, Skeleton skel,
-			SwingDefaultCamera camera) {
+			DefaultCamera2D camera) {
 		Graphics2D g = bck.graphics2D();
 		decorable.configureDecorableForElement(bck, camera, element, skel);
 		area.configureAreaForElement(bck, camera, (AreaSkeleton)skel, element, decorable.theDecor);		
 	}
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
         theShape.setFrameFromCenter(area.theCenter.x, area.theCenter.y, area.theCenter.x + area.theSize.x / 2, area.theCenter.y + area.theSize.y / 2);		
 	}
 	
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		theShape.setFrameFromCenter(area.theCenter.x + shadowable.theShadowOff.x, area.theCenter.y + shadowable.theShadowOff.y,
 				area.theCenter.x + (area.theSize.x + shadowable.theShadowWidth.x) / 2, area.theCenter.y + (area.theSize.y + shadowable.theShadowWidth.y) / 2);		
 	}
 	@Override
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skel) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skel) {
 		Graphics2D g = bck.graphics2D();
 		make(bck, camera);
 		checkValues(element);
@@ -121,7 +121,7 @@ public class PieChartShape extends FillableMulticolored implements Shape, Attrib
 	}
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		makeShadow(bck, camera);
 		shadowable.cast(bck.graphics2D(), theShape);		
 	}	

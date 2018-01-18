@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import org.graphstream.ui.geom.Point2;
 import org.graphstream.ui.graphicGraph.stylesheet.Style;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapePaint;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapePaint.ShapeAreaPaint;
 import org.graphstream.ui.swing.renderer.shape.swing.ShapePaint.ShapeColorPaint;
@@ -44,7 +44,7 @@ public class Shadowable {
    	}
  
     /** Configure all the static parts needed to cast the shadow of the shape. */
- 	public void configureShadowableForGroup( Style style, SwingDefaultCamera camera ) {
+ 	public void configureShadowableForGroup( Style style, DefaultCamera2D camera ) {
  		theShadowWidth.x = camera.getMetrics().lengthToGu( style.getShadowWidth() );
  		theShadowWidth.y = theShadowWidth.x;
  		theShadowOff.x   = camera.getMetrics().lengthToGu( style.getShadowOffset(), 0 );

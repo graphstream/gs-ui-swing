@@ -48,7 +48,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.Units;
 import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing_viewer.util.DefaultCamera;
 import org.graphstream.ui.swing_viewer.util.FontCache;
-import org.graphstream.ui.view.Camera;
+import org.graphstream.ui.view.camera.Camera;
 
 public abstract class ElementRenderer {
 	// Attribute

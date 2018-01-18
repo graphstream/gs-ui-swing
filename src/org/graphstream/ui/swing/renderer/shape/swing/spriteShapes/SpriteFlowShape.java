@@ -12,7 +12,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.SpriteOrientation;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.ConnectorSkeleton;
 import org.graphstream.ui.swing.renderer.Skeleton;
 import org.graphstream.ui.swing.renderer.Skeleton.Triplet;
@@ -44,7 +44,7 @@ public class SpriteFlowShape implements Shape {
 	}
 	
 	@Override
-	public void configureForGroup(Backend bck, Style style, SwingDefaultCamera camera) {
+	public void configureForGroup(Backend bck, Style style, DefaultCamera2D camera) {
 		theSize = camera.getMetrics().lengthToGu(style.getSize(), 0);
 		reverse = (style.getSpriteOrientation() == SpriteOrientation.FROM);
 		
@@ -55,7 +55,7 @@ public class SpriteFlowShape implements Shape {
 	}
 
 	@Override
-	public void configureForElement(Backend bck, GraphicElement element, Skeleton skel,	SwingDefaultCamera camera) {
+	public void configureForElement(Backend bck, GraphicElement element, Skeleton skel,	DefaultCamera2D camera) {
 		GraphicSprite sprite = (GraphicSprite)element;
 			
 		if( sprite.isAttachedToEdge() ) {
@@ -77,16 +77,16 @@ public class SpriteFlowShape implements Shape {
 	}
 
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		make(backend.graphics2D(), camera, 0, 0 );
 	}
 
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		make(backend.graphics2D(), camera, shadowableLine.theShadowOff.x, shadowableLine.theShadowOff.y );
 	}
 
-	private void make(Graphics2D graphics2d, SwingDefaultCamera camera, double shx, double shy) {
+	private void make(Graphics2D graphics2d, DefaultCamera2D camera, double shx, double shy) {
 		// EdgeInfo contains a way to compute points perpendicular to the shape, however here
 		// we only need to compute the perpendicular vector once, hence this code.
 		if(connectorSkel != null) {
@@ -219,7 +219,7 @@ public class SpriteFlowShape implements Shape {
 	}
 
 	@Override
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skel) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skel) {
 		if( connectorSkel != null ) {
  		    Graphics2D g = bck.graphics2D();
  			make(bck, camera);
@@ -230,7 +230,7 @@ public class SpriteFlowShape implements Shape {
 	}
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		if( connectorSkel != null ) {
 			makeShadow(bck, camera);
 			shadowableLine.cast(bck.graphics2D(), theShape );

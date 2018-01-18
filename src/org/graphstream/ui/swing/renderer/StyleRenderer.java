@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.SwingFullGraphRenderer;
 
 public abstract class StyleRenderer implements GraphicElement.SwingElementRenderer {
@@ -30,10 +30,10 @@ public abstract class StyleRenderer implements GraphicElement.SwingElementRender
 // Command
 	
 	/** Render the shadow of all (visible) elements of the group. */
-	public void renderShadow(Backend bck, SwingDefaultCamera camera) { render(bck, camera, true, renderShadow); }
+	public void renderShadow(Backend bck, DefaultCamera2D camera) { render(bck, camera, true, renderShadow); }
  
 	/** Render all the (visible) elements of the group. */
-	public void render(Backend bck, SwingDefaultCamera camera) { render(bck, camera, false, renderElement); }
+	public void render(Backend bck, DefaultCamera2D camera) { render(bck, camera, false, renderElement); }
 	
 	
 	/** Main rendering method.
@@ -53,7 +53,7 @@ public abstract class StyleRenderer implements GraphicElement.SwingElementRender
      * This rendering pass is made both for shadows and for regular drawing. The shadow and render
      * arguments allow to specify that we are rendering for shadow, and what element rendering
      * method to use (renderElement() or renderShadow()). */
-	public void render(Backend bck, SwingDefaultCamera camera, boolean shadow, FunctionInVoid<Backend, SwingDefaultCamera, GraphicElement> render) {
+	public void render(Backend bck, DefaultCamera2D camera, boolean shadow, FunctionInVoid<Backend, DefaultCamera2D, GraphicElement> render) {
 		setupRenderingPass(bck, camera, shadow);
 		pushStyle(bck, camera, shadow);
 
@@ -114,29 +114,29 @@ public abstract class StyleRenderer implements GraphicElement.SwingElementRender
 	 * @param bck The rendering back-end.
 	 * @param camera The camera.
 	 * @param forShadow true if we are in the shadow rendering pass. */
-	public abstract void setupRenderingPass(Backend bck, SwingDefaultCamera camera, boolean forShadow);
+	public abstract void setupRenderingPass(Backend bck, DefaultCamera2D camera, boolean forShadow);
 	
 	/** Called before the rendering of bulk and event elements.
 	 * @param bck The rendering back-end.
 	 * @param camera The camera.
 	 * @param forShadow true if we are in the shadow rendering pass. */
-	public abstract void pushStyle(Backend bck, SwingDefaultCamera camera, boolean forShadow);
+	public abstract void pushStyle(Backend bck, DefaultCamera2D camera, boolean forShadow);
 	
 	/** Called before the rendering of elements on dynamic styles. This must only change the style
 	 * properties that can change dynamically.
 	 * @param bck The rendering back-end.
 	 * @param camera The camera.
 	 * @param element The graphic element concerned by the dynamic style change. */
-	public abstract void pushDynStyle(Backend bck, SwingDefaultCamera camera, GraphicElement element);
+	public abstract void pushDynStyle(Backend bck, DefaultCamera2D camera, GraphicElement element);
 	
 	/** Render a single element knowing the style is already prepared. Elements that are not visible
 	 * are not drawn.
 	 * @param bck The rendering back-end.
 	 * @param camera The camera.
 	 * @param element The element to render. */
-	public abstract void renderElement(Backend bck, SwingDefaultCamera camera, GraphicElement element);
+	public abstract void renderElement(Backend bck, DefaultCamera2D camera, GraphicElement element);
 	
-	FunctionInVoid<Backend, SwingDefaultCamera, GraphicElement> renderElement = (Backend bck, SwingDefaultCamera camera, GraphicElement element) -> {
+	FunctionInVoid<Backend, DefaultCamera2D, GraphicElement> renderElement = (Backend bck, DefaultCamera2D camera, GraphicElement element) -> {
 		renderElement(bck, camera, element);
 	};
 	
@@ -144,25 +144,25 @@ public abstract class StyleRenderer implements GraphicElement.SwingElementRender
 	 * @param bck The rendering back-end.
 	 * @param camera The camera.
 	 * @param element The element to render. */
-	public abstract void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element);
+	public abstract void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element);
 	
-	FunctionInVoid<Backend, SwingDefaultCamera, GraphicElement> renderShadow = (Backend bck, SwingDefaultCamera camera, GraphicElement element) -> {
+	FunctionInVoid<Backend, DefaultCamera2D, GraphicElement> renderShadow = (Backend bck, DefaultCamera2D camera, GraphicElement element) -> {
 		renderShadow(bck, camera, element);
 	};
 	
-	/** Called during rendering in place of {@link #renderElement(Graphics2D, SwingDefaultCamera, GraphicElement)}
+	/** Called during rendering in place of {@link #renderElement(Graphics2D, DefaultCamera2D, GraphicElement)}
 	 * to signal that the given element is not inside the view. The renderElement() method will be
 	 * called as soon as the element becomes visible anew.
 	 * @param bck The rendering back-end.
 	 * @param camera The camera.
 	 * @param element The element to render. */
-	public abstract void elementInvisible(Backend bck, SwingDefaultCamera camera, GraphicElement element);
+	public abstract void elementInvisible(Backend bck, DefaultCamera2D camera, GraphicElement element);
 	
 	/** Called at the end of the rendering pass. 
 	 * @param bck The rendering back-end.
 	 * @param camera The camera.
 	 * @param forShadow true if we are in the shadow rendering pass. */
-	public abstract void endRenderingPass(Backend bck, SwingDefaultCamera camera, boolean forShadow) ;
+	public abstract void endRenderingPass(Backend bck, DefaultCamera2D camera, boolean forShadow) ;
 }
 
 

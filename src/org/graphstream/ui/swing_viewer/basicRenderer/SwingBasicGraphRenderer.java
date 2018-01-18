@@ -44,8 +44,8 @@ import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing_viewer.SwingGraphRendererBase;
 import org.graphstream.ui.swing_viewer.util.DefaultCamera;
 import org.graphstream.ui.swing_viewer.util.Graphics2DOutput;
-import org.graphstream.ui.view.Camera;
 import org.graphstream.ui.view.LayerRenderer;
+import org.graphstream.ui.view.camera.Camera;
 import org.graphstream.ui.view.util.GraphMetrics;
 import org.graphstream.ui.view.util.InteractiveElement;
 

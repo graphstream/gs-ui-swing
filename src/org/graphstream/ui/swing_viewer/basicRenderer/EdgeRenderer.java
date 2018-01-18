@@ -42,7 +42,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.FillMode;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.SizeMode;
 import org.graphstream.ui.graphicGraph.stylesheet.Values;
 import org.graphstream.ui.swing.util.ColorManager;
-import org.graphstream.ui.view.Camera;
+import org.graphstream.ui.view.camera.Camera;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

@@ -7,7 +7,7 @@ import java.awt.geom.Line2D;
 import org.graphstream.ui.geom.Point3;
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.Skeleton;
 
 
@@ -17,7 +17,7 @@ public class LineShape extends LineConnectorShape {
 	protected java.awt.Shape theShape = null;
 			
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		Point3 from = skel.from();
 		Point3 to = skel.to();
 		if( skel.isCurve() ) {
@@ -32,7 +32,7 @@ public class LineShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		double x0 = skel.from().x + shadowableLine.theShadowOff.x;
 		double y0 = skel.from().y + shadowableLine.theShadowOff.y;
 		double x1 = skel.to().x + shadowableLine.theShadowOff.x;
@@ -53,7 +53,7 @@ public class LineShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		Graphics2D g = bck.graphics2D();
 		make(bck, camera);
 		strokableLine.stroke(g, theShape );
@@ -62,7 +62,7 @@ public class LineShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		makeShadow(bck, camera);
  		shadowableLine.cast(bck.graphics2D(), theShape);
 	}

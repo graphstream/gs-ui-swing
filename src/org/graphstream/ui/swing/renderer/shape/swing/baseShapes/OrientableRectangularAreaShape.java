@@ -11,7 +11,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.Style;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.Units;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.Skeleton;
 import org.graphstream.ui.swing.renderer.shape.Orientable;
 
@@ -28,22 +28,22 @@ public class OrientableRectangularAreaShape extends RectangularAreaShape {
 		orientable = new Orientable();
 	}
 	
-	public void configureForGroup(Backend bck, Style style, SwingDefaultCamera camera) {
+	public void configureForGroup(Backend bck, Style style, DefaultCamera2D camera) {
 		super.configureForGroup(bck, style, camera);
 		orientable.configureOrientableForGroup(style, camera);
 		oriented = (style.getSpriteOrientation() != StyleConstants.SpriteOrientation.NONE);
 	}
 	
-	public void configureForElement(Backend bck, GraphicElement element, Skeleton skel, SwingDefaultCamera camera) {
+	public void configureForElement(Backend bck, GraphicElement element, Skeleton skel, DefaultCamera2D camera) {
 		super.configureForElement(bck, element, skel, camera);
 		orientable.configureOrientableForElement(camera, (GraphicSprite) element /* Check This XXX TODO !*/);
 	}
 	
-	public void make(Backend backend, SwingDefaultCamera camera) {make(backend, false, camera);}
+	public void make(Backend backend, DefaultCamera2D camera) {make(backend, false, camera);}
 	
- 	public void makeShadow(Backend backend, SwingDefaultCamera camera) {make(backend, true, camera);}
+ 	public void makeShadow(Backend backend, DefaultCamera2D camera) {make(backend, true, camera);}
 
-	private void make(Backend bck, boolean forShadow, SwingDefaultCamera camera) {
+	private void make(Backend bck, boolean forShadow, DefaultCamera2D camera) {
 		if (oriented) {
 			Vector2 theDirection = new Vector2(
 					orientable.target.x - area.theCenter.x,
@@ -76,7 +76,7 @@ public class OrientableRectangularAreaShape extends RectangularAreaShape {
 		}
 	}
  	
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skel) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skel) {
 		make(bck, false, camera);
 		
 		Graphics2D g = bck.graphics2D();
@@ -100,7 +100,7 @@ public class OrientableRectangularAreaShape extends RectangularAreaShape {
 	}
 	
 	
- 	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skel) {
+ 	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skel) {
  		make(bck, true, camera);
  		
  		Graphics2D g = bck.graphics2D();

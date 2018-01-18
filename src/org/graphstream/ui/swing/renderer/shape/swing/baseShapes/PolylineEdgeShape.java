@@ -5,7 +5,7 @@ import java.awt.geom.Path2D;
 
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.Skeleton;
 import org.graphstream.ui.swing.renderer.shape.swing.ShowCubics;
 
@@ -18,7 +18,7 @@ public class PolylineEdgeShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		int n = skel.size();
 		
 		theShape.reset();
@@ -30,10 +30,10 @@ public class PolylineEdgeShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {}
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {}
 
 	@Override
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		Graphics2D g = bck.graphics2D();
 		make(bck, camera);
 		strokableLine.stroke(g, theShape);
@@ -42,7 +42,7 @@ public class PolylineEdgeShape extends LineConnectorShape {
 	}
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		makeShadow(bck, camera);
  		shadowableLine.cast(bck.graphics2D(), theShape);			
 	}

@@ -4,14 +4,14 @@ import java.awt.geom.Rectangle2D;
 
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.swing.Backend;
-import org.graphstream.ui.swing.SwingDefaultCamera;
+import org.graphstream.ui.view.camera.DefaultCamera2D;
 import org.graphstream.ui.swing.renderer.Skeleton;
 
 public abstract class RectangularAreaShape extends AreaShape {
 	private java.awt.geom.RectangularShape theShape = new Rectangle2D.Double();
 	
 	@Override
-	public void make(Backend backend, SwingDefaultCamera camera) {
+	public void make(Backend backend, DefaultCamera2D camera) {
 		double w = area.theSize.x;
 		double h = area.theSize.y;
 		
@@ -19,7 +19,7 @@ public abstract class RectangularAreaShape extends AreaShape {
 	}
 
 	@Override
-	public void makeShadow(Backend backend, SwingDefaultCamera camera) {
+	public void makeShadow(Backend backend, DefaultCamera2D camera) {
 		double x = area.theCenter.x + shadowable.theShadowOff.x;
 		double y = area.theCenter.y + shadowable.theShadowOff.y;
 		double w = area.theSize.x + shadowable.theShadowWidth.x * 2;
@@ -29,7 +29,7 @@ public abstract class RectangularAreaShape extends AreaShape {
 	}
 
 	@Override
-	public void render(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skel) {
+	public void render(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skel) {
 		make(bck, camera);
  		fillable.fill(bck.graphics2D(), theShape(), camera);
  		strokable.stroke(bck.graphics2D(), theShape());
@@ -37,7 +37,7 @@ public abstract class RectangularAreaShape extends AreaShape {
 	}
 
 	@Override
-	public void renderShadow(Backend bck, SwingDefaultCamera camera, GraphicElement element, Skeleton skeleton) {
+	public void renderShadow(Backend bck, DefaultCamera2D camera, GraphicElement element, Skeleton skeleton) {
 		makeShadow(bck, camera);
  		shadowable.cast(bck.graphics2D(), theShape());
 	}
