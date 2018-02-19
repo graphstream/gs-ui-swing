@@ -41,7 +41,7 @@ import org.graphstream.stream.ProxyPipe;
 import org.graphstream.stream.Source;
 import org.graphstream.stream.thread.ThreadProxyPipe;
 import org.graphstream.ui.graphicGraph.GraphicGraph;
-import org.graphstream.ui.swing_viewer.basicRenderer.SwingBasicGraphRenderer;
+import org.graphstream.ui.swing.SwingFullGraphRenderer;
 import org.graphstream.ui.view.GraphRenderer;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
@@ -240,7 +240,7 @@ public class SwingViewer extends Viewer implements ActionListener {
 	 * Create a new instance of the default graph renderer.
 	 */
 	public GraphRenderer<?, ?> newDefaultGraphRenderer() {
-		return new SwingBasicGraphRenderer();
+		return new SwingFullGraphRenderer();
 	}
 
 	// Command
