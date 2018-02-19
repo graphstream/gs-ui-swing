@@ -27,7 +27,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.graphicGraph.stylesheet.Values;
 import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.view.camera.DefaultCamera2D;
-import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.SwingGraphRenderer;
 import org.graphstream.ui.swing.renderer.shape.swing.basicShapes.SquareShape;
 import org.graphstream.ui.swing.util.ColorManager;
 import org.graphstream.ui.swing.util.FontCache;
@@ -36,7 +36,7 @@ import org.graphstream.ui.view.util.GraphMetrics;
 
 public class JComponentRenderer extends StyleRenderer {
 	
-	private SwingFullGraphRenderer mainRenderer;
+	private SwingGraphRenderer mainRenderer;
 	private StyleGroup styleGroup;
 	
 	/** The size of components. */
@@ -56,7 +56,7 @@ public class JComponentRenderer extends StyleRenderer {
  
 	protected Object antialiasSetting = null;
 	
-	public JComponentRenderer(StyleGroup styleGroup, SwingFullGraphRenderer mainRenderer) {
+	public JComponentRenderer(StyleGroup styleGroup, SwingGraphRenderer mainRenderer) {
 		super(styleGroup);
 		this.styleGroup = styleGroup ;
 		this.mainRenderer = mainRenderer ;

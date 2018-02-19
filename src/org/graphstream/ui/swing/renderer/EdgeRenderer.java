@@ -5,7 +5,7 @@ import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.view.camera.DefaultCamera2D;
-import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.SwingGraphRenderer;
 import org.graphstream.ui.swing.renderer.shape.Connector;
 import org.graphstream.ui.swing.renderer.shape.Shape;
 import org.graphstream.ui.swing.renderer.shape.swing.baseShapes.AreaOnConnectorShape;
@@ -18,7 +18,7 @@ public class EdgeRenderer extends StyleRenderer {
 		super(styleGroup);
 	}
 	
-	public EdgeRenderer(StyleGroup styleGroup, SwingFullGraphRenderer mainRenderer) {
+	public EdgeRenderer(StyleGroup styleGroup, SwingGraphRenderer mainRenderer) {
 		super(styleGroup);
 	}
 

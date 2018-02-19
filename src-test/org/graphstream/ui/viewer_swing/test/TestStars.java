@@ -9,7 +9,7 @@ import org.graphstream.ui.graphicGraph.stylesheet.Values;
 import org.graphstream.ui.spriteManager.Sprite;
 import org.graphstream.ui.spriteManager.SpriteFactory;
 import org.graphstream.ui.spriteManager.SpriteManager;
-import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.SwingGraphRenderer;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.view.ViewerListener;
@@ -26,7 +26,7 @@ public class TestStars implements  ViewerListener {
 		
 		Viewer viewer = new SwingViewer( graph, SwingViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD );
 		ViewerPipe pipeIn = viewer.newViewerPipe();
-		viewer.addView( "view1", new SwingFullGraphRenderer() );
+		viewer.addView( "view1", new SwingGraphRenderer() );
 
 		pipeIn.addAttributeSink( graph );
 		pipeIn.addViewerListener( this );

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
-import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.SwingGraphRenderer;
 import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.view.View;
@@ -34,7 +34,7 @@ public class TestIcons implements ViewerListener{
 		MultiGraph graph  = new MultiGraph( "Icons ..." );
 		SwingViewer viewer = new SwingViewer( graph, SwingViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD );
 		ViewerPipe pipeIn = viewer.newViewerPipe();
-		View view   = viewer.addView( "view1", new SwingFullGraphRenderer() );
+		View view   = viewer.addView( "view1", new SwingGraphRenderer() );
 
 		pipeIn.addAttributeSink( graph );
 		pipeIn.addViewerListener( this );

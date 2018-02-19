@@ -6,14 +6,14 @@ import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.view.camera.DefaultCamera2D;
-import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.SwingGraphRenderer;
 
 public abstract class StyleRenderer implements GraphicElement.SwingElementRenderer {
 	
 	protected StyleGroup group ;
 	protected boolean hadEvents = false ;
 	
-	public static StyleRenderer apply(StyleGroup style, SwingFullGraphRenderer mainRenderer) {
+	public static StyleRenderer apply(StyleGroup style, SwingGraphRenderer mainRenderer) {
 		switch (style.getType()) {
 			case NODE: return NodeRenderer.apply(style, mainRenderer) ; 
 			case EDGE: return new EdgeRenderer(style, mainRenderer) ; 

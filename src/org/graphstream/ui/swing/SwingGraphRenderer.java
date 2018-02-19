@@ -93,7 +93,7 @@ import org.graphstream.ui.view.util.InteractiveElement;
  * for drawing the graph, the backend is also responsible for the shape
  * creation.
  */
-public class SwingFullGraphRenderer implements GraphRenderer<Container, Graphics2D>, StyleGroupListener {
+public class SwingGraphRenderer implements GraphRenderer<Container, Graphics2D>, StyleGroupListener {
 	public final static String DEFAULT_RENDERER = "j2d_def_rndr";
 	
 	protected DefaultCamera2D camera = null;
@@ -360,7 +360,7 @@ public class SwingFullGraphRenderer implements GraphRenderer<Container, Graphics
     	// XXX The element renderer should be the listener, not this. ... XXX
 
     	if(oldStyle != null) {
-    		SwingElementRenderer renderer = oldStyle.getRenderer(SwingFullGraphRenderer.DEFAULT_RENDERER);
+    		SwingElementRenderer renderer = oldStyle.getRenderer(SwingGraphRenderer.DEFAULT_RENDERER);
 
 	    	if((renderer != null ) && renderer instanceof JComponentRenderer)
 	    		((JComponentRenderer)renderer).unequipElement((GraphicElement)element);

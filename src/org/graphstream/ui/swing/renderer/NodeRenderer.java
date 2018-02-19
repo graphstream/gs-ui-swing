@@ -5,7 +5,7 @@ import org.graphstream.ui.graphicGraph.GraphicNode;
 import org.graphstream.ui.graphicGraph.StyleGroup;
 import org.graphstream.ui.swing.Backend;
 import org.graphstream.ui.view.camera.DefaultCamera2D;
-import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.SwingGraphRenderer;
 import org.graphstream.ui.swing.renderer.shape.Shape;
 
 public class NodeRenderer extends StyleRenderer {
@@ -16,7 +16,7 @@ public class NodeRenderer extends StyleRenderer {
 		super(style);
 	}
 	
-	public static StyleRenderer apply(StyleGroup style, SwingFullGraphRenderer renderer) {
+	public static StyleRenderer apply(StyleGroup style, SwingGraphRenderer renderer) {
 		if (style.getShape() == org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.Shape.JCOMPONENT)
 			return new JComponentRenderer(style, renderer);
 		else

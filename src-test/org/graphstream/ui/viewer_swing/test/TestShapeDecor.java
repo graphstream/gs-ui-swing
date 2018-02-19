@@ -3,7 +3,7 @@ package org.graphstream.ui.viewer_swing.test;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
-import org.graphstream.ui.swing.SwingFullGraphRenderer;
+import org.graphstream.ui.swing.SwingGraphRenderer;
 import org.graphstream.ui.swing.util.ImageCache;
 import org.graphstream.ui.swing_viewer.DefaultView;
 import org.graphstream.ui.swing_viewer.SwingViewer;
@@ -23,7 +23,7 @@ public class TestShapeDecor implements ViewerListener {
 		
 		Viewer viewer = new SwingViewer( graph, SwingViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD );
 		ViewerPipe pipeIn = viewer.newViewerPipe();
-		DefaultView view   = (DefaultView)viewer.addView( "view1", new SwingFullGraphRenderer() );
+		DefaultView view   = (DefaultView)viewer.addView( "view1", new SwingGraphRenderer() );
 		
 		view.resizeFrame(500, 430);
 
