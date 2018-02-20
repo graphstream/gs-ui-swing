@@ -22,45 +22,45 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-C and LGPL licenses and that you accept their terms.
  */
-package org.graphstream.stream.file.images;
+package org.graphstream.ui.swing.util;
 
 import org.graphstream.stream.file.FileSinkImages;
 import org.graphstream.ui.swing.SwingGraphRenderer;
-import org.graphstream.ui.view.GraphRenderer;
+import org.graphstream.ui.view.camera.Camera;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class SwingImageRenderer implements ImageRenderer {
+public class SwingFileSinkImages extends FileSinkImages {
 	protected BufferedImage image;
 	protected Graphics2D g2d;
 	protected SwingGraphRenderer renderer;
 
-	public SwingImageRenderer() {
+	public SwingFileSinkImages() {
 		this.renderer = new SwingGraphRenderer();
+		this.renderer.open(gg, null);
 	}
 
-	public void clear(int color) {
-		for (int x = 0; x < image.getWidth(); x++)
-			for (int y = 0; y < image.getHeight(); y++)
-				image.setRGB(x, y, color);
+	@Override protected Camera getCamera() {
+		return renderer.getCamera();
 	}
 
-	public GraphRenderer<?, ?> getGraphRenderer() {
-		return renderer;
+	@Override protected void render() {
+		renderer.render(g2d, 0, 0, resolution.getWidth(), resolution.getHeight());
 	}
 
-	public void init(Resolution resolution, FileSinkImages.OutputType outputType) {
+	@Override protected BufferedImage getRenderedImage() {
+		return image;
+	}
+
+	@Override protected void initImage() {
 		image = new BufferedImage(resolution.getWidth(), resolution.getHeight(), outputType.imageType);
 		g2d = image.createGraphics();
 	}
 
-	public BufferedImage getRenderedImage() {
-		image.flush();
-		return image;
-	}
-
-	public void render(int x, int y, int width, int height) {
-		renderer.render(g2d, x, y, width, height);
+	@Override protected void clearImage(int color) {
+		for (int x = 0; x < image.getWidth(); x++)
+			for (int y = 0; y < image.getHeight(); y++)
+				image.setRGB(x, y, color);
 	}
 }
