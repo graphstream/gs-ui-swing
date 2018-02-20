@@ -25,6 +25,8 @@
 package org.graphstream.ui.swing.util;
 
 import org.graphstream.stream.file.FileSinkImages;
+import org.graphstream.stream.file.images.Resolution;
+import org.graphstream.stream.file.images.Resolutions;
 import org.graphstream.ui.swing.SwingGraphRenderer;
 import org.graphstream.ui.view.camera.Camera;
 
@@ -37,28 +39,43 @@ public class SwingFileSinkImages extends FileSinkImages {
 	protected SwingGraphRenderer renderer;
 
 	public SwingFileSinkImages() {
+		this(OutputType.PNG, Resolutions.HD720);
+	}
+
+	public SwingFileSinkImages(OutputType outputType, Resolution resolution) {
+		this(outputType, resolution, OutputPolicy.NONE);
+	}
+
+	public SwingFileSinkImages(OutputType type, Resolution resolution, OutputPolicy outputPolicy) {
+		super(type, resolution, outputPolicy);
+
 		this.renderer = new SwingGraphRenderer();
 		this.renderer.open(gg, null);
 	}
 
-	@Override protected Camera getCamera() {
+	@Override
+	protected Camera getCamera() {
 		return renderer.getCamera();
 	}
 
-	@Override protected void render() {
+	@Override
+	protected void render() {
 		renderer.render(g2d, 0, 0, resolution.getWidth(), resolution.getHeight());
 	}
 
-	@Override protected BufferedImage getRenderedImage() {
+	@Override
+	protected BufferedImage getRenderedImage() {
 		return image;
 	}
 
-	@Override protected void initImage() {
+	@Override
+	protected void initImage() {
 		image = new BufferedImage(resolution.getWidth(), resolution.getHeight(), outputType.imageType);
 		g2d = image.createGraphics();
 	}
 
-	@Override protected void clearImage(int color) {
+	@Override
+	protected void clearImage(int color) {
 		for (int x = 0; x < image.getWidth(); x++)
 			for (int y = 0; y < image.getHeight(); y++)
 				image.setRGB(x, y, color);
