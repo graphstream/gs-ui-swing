@@ -25,7 +25,7 @@
 		<version>7</version>
 	</parent>
 	
-	<groupId>gs-ui-swing</groupId>
+	<groupId>org.graphstream</groupId>
 	<artifactId>gs-ui-swing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gs-ui-swing</name>
