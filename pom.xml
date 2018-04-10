@@ -50,65 +50,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
-	<!-- The GraphStream Team. Members are sorted in alphabetically. -->
-	<developers>
-		<developer>
-			<id>sbalev</id>
-			<name>Stefan Balev</name>
-			<email>stefan.balev@graphstream-project.org</email>
-			<organization>LITIS</organization>
-			<organizationUrl>http://www.litislab.eu</organizationUrl>
-		</developer>
-
-		<developer>
-			<id>jbaudry</id>
-			<name>Julien Baudry</name>
-			<email>julien.baudry@graphstream-project.org</email>
-			<organization>LITIS</organization>
-			<organizationUrl>http://www.litislab.eu</organizationUrl>
-		</developer>
-
-		<developer>
-			<id>adutot</id>
-			<name>Antoine Dutot</name>
-			<email>antoine.dutot@graphstream-project.org</email>
-			<organization>LITIS</organization>
-			<organizationUrl>http://www.litislab.eu</organizationUrl>
-		</developer>
-
-		<developer>
-			<id>ypigne</id>
-			<name>Yoann Pigné</name>
-			<email>yoann.pigne@graphstream-project.org</email>
-			<organization>University of Luxembourg</organization>
-			<organizationUrl>http://www.uni.lu</organizationUrl>
-		</developer>
-
-		<developer>
-			<id>gsavin</id>
-			<name>Guilhelm Savin</name>
-			<email>guilhelm.savin@graphstream-project.org</email>
-			<organization>LITIS</organization>
-			<organizationUrl>http://www.litislab.eu</organizationUrl>
-		</developer>
-	</developers>
-
-	<contributors>
-		<contributor>
-			<name>Frédéric Guinand</name>
-			<email>frederic.guinand@univ-lehavre.fr</email>
-			<organization>LITIS</organization>
-			<organizationUrl>http://www.litislab.eu</organizationUrl>
-		</contributor>
-
-		<contributor>
-			<name>Richard O. Legendi</name>
-			<email>richard.legendi@univ-lehavre.fr</email>
-			<organization>Eötvös Loránd University, Faculty of Informatics</organization>
-			<organizationUrl>http://people.inf.elte.hu/legendi/</organizationUrl>
-		</contributor>
-	</contributors>
-	
 	<licenses>
 		<license>
 			<name>LGPL3</name>
@@ -122,57 +63,6 @@
 		</license>
 	</licenses>
 	
-	<profiles>
-		<profile>
-			<!-- This profile includes classes of mbox2 and pherd project to create 
-				a fully usable jar. You need to have a valid gs-deps folder at the same hierarchic 
-				level that the one of your project with mbox2 and pherd compiled (mvn compile). -->
-			<id>nodeps</id>
-			<build>
-				<resources>
-					<resource>
-						<directory>../gs-deps/mbox2/target/classes</directory>
-						<includes>
-							<include>org/**/*.class</include>
-						</includes>
-					</resource>
-					<resource>
-						<directory>../gs-deps/pherd/target/classes</directory>
-						<includes>
-							<include>org/**/*.class</include>
-						</includes>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<!-- This profile has to be enabled when releasing the package. It will 
-				enable the sign phase. -->
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<configuration>
-							<keyname><![CDATA[GraphStream Team <team@graphstream-project.org>]]></keyname>
-							<skip>false</skip>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>package</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<outputDirectory>bin</outputDirectory>
@@ -183,9 +73,6 @@
 			<!-- Resources other than classes are included here. -->
 			<resource>
 				<directory>src</directory>
-				<includes>
-					<include>org/graphstream/ui/graphicGraph/stylesheet/rgb.properties</include>
-				</includes>
 			</resource>
 		</resources>
 
@@ -333,5 +220,12 @@
 			<optional>false</optional>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+    		<groupId>org.graphstream</groupId>
+    		<artifactId>gs-algo</artifactId>
+    		<version>2.0.0-SNAPSHOT</version>
+    		<scope>test</scope>
+    	</dependency>
 	</dependencies>
 </project>
