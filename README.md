@@ -43,12 +43,12 @@ then, add the `gs-core` and `gs-ui-swing` to your dependencies:
 <dependency>
     <groupId>com.github.graphstream</groupId>
     <artifactId>gs-core</artifactId>
-    <version>dev-SNAPSHOT</version>
+    <version>2.0-alpha</version>
 </dependency>
 <dependency>
     <groupId>com.github.graphstream</groupId>
     <artifactId>gs-ui-swing</artifactId>
-    <version>dev-SNAPSHOT</version>
+    <version>2.0-alpha</version>
 </dependency>
 ```
 
