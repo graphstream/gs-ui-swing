@@ -1,5 +1,8 @@
 # GraphStream -- Swing Viewer
 
+[![Build Status](https://travis-ci.org/graphstream/gs-ui-swing.svg?branch=master)](https://travis-ci.org/graphstream/gs-ui-swing)
+
+
 The GraphStream project is a java library that provides an API to model, analyze and visualize graphs and dynamic graphs.
 
 This module contains a Swing implementation of the GraphStream Viewer.
