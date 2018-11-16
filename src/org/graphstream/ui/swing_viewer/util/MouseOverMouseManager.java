@@ -76,7 +76,6 @@ public class MouseOverMouseManager extends DefaultMouseManager {
     }
 
     public void mouseMoved(MouseEvent event) {
-    	System.out.println("moved");
         try {
             hoverLock.lockInterruptibly();
             boolean stayedOnElement = false;
