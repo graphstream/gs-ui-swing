@@ -78,4 +78,6 @@ public abstract class ViewPanel extends JPanel implements View {
 	 *            The new height.
 	 */
 	public abstract void resizeFrame(int width, int height);
+	
+	public abstract void enableMouseOptions();
 }

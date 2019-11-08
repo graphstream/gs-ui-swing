@@ -32,8 +32,10 @@
 package org.graphstream.ui.swing_viewer.util;
 
 import org.graphstream.ui.graphicGraph.GraphicElement;
+import org.graphstream.ui.view.util.InteractiveElement;
 
 import java.awt.event.MouseEvent;
+import java.util.EnumSet;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.locks.ReentrantLock;
@@ -61,9 +63,18 @@ public class MouseOverMouseManager extends DefaultMouseManager {
         super();
         this.delay = delay;
     }
+    
+    public MouseOverMouseManager(EnumSet<InteractiveElement> types, final long delay) {
+        super(types);
+        this.delay = delay;
+    }
+    
+    public MouseOverMouseManager(EnumSet<InteractiveElement> types) {
+        this(types, 100);
+    }
 
     public MouseOverMouseManager() {
-        this(1000);
+        this(100);
     }
 
     protected void mouseOverElement(GraphicElement element) {
