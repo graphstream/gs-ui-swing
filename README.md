@@ -12,7 +12,7 @@ Check out the Website <http://www.graphstream-project.org/> for more information
 
 This viewer is a rewrite of the old [gs-ui](https://github.com/graphstream/gs-ui) [Scala](http://www.scala-lang.org/)-based renderer. `gs-ui` is now deprecated.
 
-This renderer supports almost all of the CSS properties defined in the [GraphStream CSS Reference](http://graphstream-project.org/doc/Tutorials/GraphStream-CSS-Reference_1.0/), however it is still a work in progress. This viewer is intended only at 2D visualization actually.
+This renderer supports almost all of the CSS properties defined in the [GraphStream CSS Reference](http://graphstream-project.org/doc/Advanced-Concepts/GraphStream-CSS-Reference/), however it is still a work in progress. This viewer is intended only at 2D visualization actually.
 
 We are interested in any suggestion to improve this renderer, and your use cases could be of great help for us in developing this project. If you like and use this project, this could be a good contribution.
 
@@ -68,6 +68,15 @@ Or use the command line :
 java -Dorg.graphstream.ui=swing YourClass
 ```
 
+## Camera and Visualization
+Graphstream spring has camera movement build in. 
+Besides beeing able to move elements around with the mouse following keys have a feature:
+* left/right/up/down: Move the camera in that direction.
+* page start: Zoom in
+* page end: Zoom out
+* SHIFT + r: Reset cameraview.
+
+Further information about usage can be found in our [Graph-Visualisation](http://graphstream-project.org/doc/Tutorials/Graph-Visualisation/) tutorial.
 ## Help
 
 You may check the documentation on the [website](http://graphstream-project.org). You may also share your questions on the mailing list at http://sympa.litislab.fr/sympa/subscribe/graphstream-users
