@@ -51,6 +51,7 @@ import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.GraphicGraph;
 import org.graphstream.ui.swing_viewer.util.DefaultMouseManager;
 import org.graphstream.ui.swing_viewer.util.DefaultShortcutManager;
+import org.graphstream.ui.swing_viewer.util.MouseOverMouseManager;
 import org.graphstream.ui.view.GraphRenderer;
 import org.graphstream.ui.view.LayerRenderer;
 import org.graphstream.ui.view.Viewer;
@@ -382,6 +383,14 @@ public class DefaultView extends ViewPanel implements WindowListener, ComponentL
 		manager.init(graph, this);
 
 		mouseClicks = manager;
+	}
+	
+	/**
+	 * This is a shortcut to a call setMouseManager with a MouseOverMouseManager instance and with
+	 * (InteractiveElement.EDGE, InteractiveElement.NODE, InteractiveElement.SPRITE).
+	 */
+	public void enableMouseOptions() {
+		setMouseManager(new MouseOverMouseManager(EnumSet.of(InteractiveElement.EDGE, InteractiveElement.NODE, InteractiveElement.SPRITE)));
 	}
 
 	public void setShortcutManager(ShortcutManager manager) {
