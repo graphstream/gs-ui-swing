@@ -87,7 +87,7 @@ public class MouseOverMouseManager extends DefaultMouseManager {
     }
 
     public void mouseMoved(MouseEvent event) {
-    	try {
+        try {
             hoverLock.lockInterruptibly();
             boolean stayedOnElement = false;
             GraphicElement currentElement = view.findGraphicElementAt(getManagedTypes(),event.getX(), event.getY());
