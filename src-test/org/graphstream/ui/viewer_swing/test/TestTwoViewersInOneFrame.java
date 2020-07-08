@@ -31,9 +31,11 @@
   
 package org.graphstream.ui.viewer_swing.test;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.graphstream.algorithm.generator.DorogovtsevMendesGenerator;
 import org.graphstream.graph.implementations.MultiGraph;
@@ -88,9 +90,15 @@ public class TestTwoViewersInOneFrame extends JFrame {
 		gen.removeSink(graph2);
 
 		setLayout(new GridLayout(1, 2));
-		//add(new JButton("Button"))
-		add(view1);
-		add(view2);
+
+		JPanel panelView1 = new JPanel(new BorderLayout()); // prevent UI shift issues
+		panelView1.add(view1, BorderLayout.CENTER);
+		
+		JPanel panelView2 = new JPanel(new BorderLayout()); // prevent UI shift issues
+		panelView2.add(view2, BorderLayout.CENTER);
+		
+		add(panelView1);
+		add(panelView2);
 		setSize(800, 600);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
