@@ -1,0 +1,13 @@
+org.graphstream.ui.swing
+org.graphstream.ui.swing_viewer
+org.graphstream.ui.swing_viewer.util
+org.graphstream.ui.swing.renderer
+org.graphstream.ui.swing.renderer.shape
+org.graphstream.ui.swing.renderer.shape.swing
+org.graphstream.ui.swing.renderer.shape.swing.advancedShapes
+org.graphstream.ui.swing.renderer.shape.swing.arrowShapes
+org.graphstream.ui.swing.renderer.shape.swing.baseShapes
+org.graphstream.ui.swing.renderer.shape.swing.basicShapes
+org.graphstream.ui.swing.renderer.shape.swing.shapePart
+org.graphstream.ui.swing.renderer.shape.swing.spriteShapes
+org.graphstream.ui.swing.util
