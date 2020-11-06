@@ -103,7 +103,7 @@ public class Fillable {
   	public void configureFillableForElement( Style style, DefaultCamera2D camera, GraphicElement element ) {
   	  	if( style.getFillMode() == StyleConstants.FillMode.DYN_PLAIN && element != null ) {
   	  		if ( element.getAttribute( "ui.color" ) instanceof Number ) {
-  	  			theFillPercent = (float)((Number)element.getAttribute( "ui.color" ));
+  	  			theFillPercent = ((Number)element.getAttribute( "ui.color" )).floatValue();
   	  			theFillColor = null;
   	  		}
   	  		else if ( element.getAttribute( "ui.color" ) instanceof Color ) {
