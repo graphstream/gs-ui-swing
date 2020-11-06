@@ -34,9 +34,11 @@ package org.graphstream.ui.swing_viewer;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
@@ -46,6 +48,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 
 import javax.swing.JFrame;
+import javax.swing.ToolTipManager;
 
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.graphicGraph.GraphicGraph;
@@ -114,6 +117,9 @@ import org.graphstream.ui.view.util.ShortcutManager;
  */
 public class DefaultView extends ViewPanel implements WindowListener, ComponentListener {
 	private static final long serialVersionUID = -4489484861592064398L;
+
+	private static final EnumSet<InteractiveElement> ALL_ELEMS
+			= EnumSet.allOf(InteractiveElement.class);
 
 	/**
 	 * Parent viewer.
@@ -238,6 +244,50 @@ public class DefaultView extends ViewPanel implements WindowListener, ComponentL
 				frame.dispose();
 			}
 		}
+	}
+
+	/**
+	 * Turns tool-tips on or off.
+	 * They are off by default.
+	 * This is most useful for tool-tips of individual graph elements (like nodes and edges),
+	 * and it displays the hovered-over elements tooltip text,
+	 * as taken from it's "ui.tooltip" attribute, if one is set.
+	 * @param enabled whether tool-tips are enabled or disabled.
+	 */
+	public void setToolTips(final boolean enabled) {
+
+		if (enabled) {
+			ToolTipManager.sharedInstance().registerComponent(this);
+		} else {
+			ToolTipManager.sharedInstance().unregisterComponent(this);
+		}
+	}
+
+	@Override
+	public String getToolTipText(final MouseEvent evt) {
+		String text = null;
+
+		final GraphicElement graphElement = findGraphicElementAt(ALL_ELEMS, evt.getX(), evt.getY());
+		if (graphElement != null) {
+			text = graphElement.getAttribute("ui.tooltip", String.class);
+		}
+
+		if (text == null) {
+			text = graph.getAttribute("ui.tooltip", String.class);
+		}
+
+		if (text == null) {
+			text = super.getToolTipText(evt);
+		}
+
+		return text;
+	}
+
+	@Override
+	public Point getToolTipLocation(final MouseEvent evt) {
+		final Point p = evt.getPoint();
+		p.y += 15;
+		return p;
 	}
 
 	public void render(Graphics2D g) {
