@@ -1,9 +1,9 @@
 /*
  * This file is part of GraphStream <http://graphstream-project.org>.
- * 
+ *
  * GraphStream is a library whose purpose is to handle static or dynamic
  * graph, create them from scratch, file or any source and display them.
- * 
+ *
  * This program is free software distributed under the terms of two licenses, the
  * CeCILL-C license that fits European law, and the GNU Lesser General Public
  * License. You can  use, modify and/ or redistribute the software under the terms
@@ -11,14 +11,14 @@
  * URL <http://www.cecill.info> or under the terms of the GNU LGPL as published by
  * the Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
  * PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-C and LGPL licenses and that you accept their terms.
  */
@@ -28,7 +28,7 @@
   * @author Guilhelm Savin <guilhelm.savin@graphstream-project.org>
   * @author Hicham Brahimi <hicham.brahimi@graphstream-project.org>
   */
-  
+
 package org.graphstream.ui.viewer_swing.test;
 
 import org.graphstream.algorithm.generator.DorogovtsevMendesGenerator;
@@ -47,10 +47,11 @@ import org.graphstream.ui.view.ViewerPipe;
 public class TestManySprite implements ViewerListener {
 	public static void main(String[] args) {
 		System.setProperty("org.graphstream.ui", "org.graphstream.ui.swing.util.Display");
+		System.setProperty("sun.java2d.uiScale", "1.0");
 
 		(new TestManySprite()).run();
 	}
-	
+
 	/** The application runs while this is true. */
 	boolean loop = true;
 
@@ -62,7 +63,7 @@ public class TestManySprite implements ViewerListener {
 
 	int NODE_COUNT = 1000;
 	int SPRITE_COUNT = 500;
-	
+
 	private void run() {
 		graph  = new MultiGraph( "TestSprites" );
 		Viewer viewer = graph.display( true );
@@ -99,7 +100,7 @@ public class TestManySprite implements ViewerListener {
 		System.out.println( "bye bye" );
 		System.exit(0);
 	}
-	
+
 
 	protected void sleep( long ms ) {
 		try {
@@ -114,12 +115,12 @@ public class TestManySprite implements ViewerListener {
 	public void buttonPushed( String id ) {}
 
  	public void buttonReleased( String id ) {}
- 	
+
 
 	private void moveSprites() {
-		 sprites.forEach( s -> ((TestSprite)s).move() );	
+		 sprites.forEach( s -> ((TestSprite)s).move() );
 	}
-	
+
 
 	private void addSprites() {
 		sprites = new SpriteManager( graph );
@@ -136,13 +137,13 @@ public class TestManySprite implements ViewerListener {
 	private Edge randomEdge(Graph graph) {
 		int min = 0 ;
 		int max = (int) graph.edges().count();
-		
+
 		int rand = (int) (min + (Math.random() * (max - min)));
-		
+
 		return graph.getEdge(rand);
 	}
-	
-	private String styleSheet = 
+
+	private String styleSheet =
 			"graph {"+
 				"fill-mode: plain;"+
 				"fill-color: white, gray;"+
@@ -171,7 +172,7 @@ public class TestManySprite implements ViewerListener {
 				"fill-color: red;"+
 				"stroke-mode: none;"+
 			"}";
-	
+
   	public void mouseOver(String id){}
 
 	public void mouseLeft(String id){}
@@ -186,11 +187,11 @@ class TestSpriteFactory extends SpriteFactory {
 
 class TestSprite extends Sprite {
 	double dir = 0.01f;
-	
+
 	public TestSprite( String identifier, SpriteManager manager ) {
 		super( identifier, manager );
 	}
-	
+
 	public void move() {
 		double p = getX();
 
@@ -204,21 +205,21 @@ class TestSprite extends Sprite {
 
 	public void chooseNextEdge() {
 		Edge edge = (Edge) getAttachment();
-		Node node = edge.getSourceNode(); 
+		Node node = edge.getSourceNode();
 		if( dir > 0 )
 			node = edge.getTargetNode() ;
-		
-		
+
+
 		Edge next = randomEdge( node );
 		double pos = 0;
 
-		if( node == next.getSourceNode() ) { 
-			dir =  0.01f; 
+		if( node == next.getSourceNode() ) {
+			dir =  0.01f;
 			pos = 0;
 		}
-		else { 
-			dir = -0.01f; 
-			pos = 1; 
+		else {
+			dir = -0.01f;
+			pos = 1;
 		}
 
 		attachToEdge( next.getId() );
@@ -228,9 +229,9 @@ class TestSprite extends Sprite {
 	private Edge randomEdge(Node node) {
 		int min = 0 ;
 		int max = (int) node.edges().count();
-		
+
 		int rand = (int) (min + (Math.random() * (max - min)));
-		
+
 		return node.getEdge(rand);
 	}
 }
