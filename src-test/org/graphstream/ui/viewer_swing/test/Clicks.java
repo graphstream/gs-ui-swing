@@ -1,5 +1,3 @@
-package org.openrewrite.java.controlflow;
-
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -82,7 +80,7 @@ public class Clicks {
                         "}");
 
         Node a = graph.addNode("A");
-        a.setAttribute("ui.label", "ABC\n     EFG");
+        a.setAttribute("ui.label", "Line1\nLine2\nLine3");
         graph.addNode("B");
         graph.addNode("C");
         graph.addEdge("AB", "A", "B");

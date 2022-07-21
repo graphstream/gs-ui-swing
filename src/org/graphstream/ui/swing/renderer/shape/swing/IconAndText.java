@@ -379,7 +379,7 @@ class SwingTextBox extends TextBox {
 			for (int i = 0; i < text.size(); i++) {
 //				text.get(i).draw(g, xLeft, yBottom - getAscent());
 //				yBottom -= getAscent() + getDescent();
-				text.get(i).draw(g, (float)xLeft, (float) ((float)yBottom+i*getAscent()));
+				text.get(i).draw(g, (float)xLeft, (float) ((float)yBottom+(i-1)*getAscent()));
 			}
 //			text.get(0).draw(g, (float)xLeft, (float)yBottom);
 		}
