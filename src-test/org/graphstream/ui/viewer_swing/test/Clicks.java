@@ -1,8 +1,6 @@
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.spriteManager.Sprite;
-import org.graphstream.ui.spriteManager.SpriteManager;
 import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
@@ -11,8 +9,6 @@ import org.graphstream.ui.view.ViewerPipe;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static java.awt.Dialog.ModalityType.DOCUMENT_MODAL;
 
 public class Clicks {
 
@@ -58,9 +54,6 @@ public class Clicks {
         panel.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         mainFrame.add(panel);
 
-        // We do as usual to display a graph. This
-        // connect the graph outputs to the viewer.
-        // The viewer is a sink of the graph.
         graph = new SingleGraph("Clicks");
         graph.setAttribute("ui.stylesheet",
                 "node {\n" +
@@ -87,24 +80,6 @@ public class Clicks {
         graph.addEdge("AB", "A", "B");
         graph.addEdge("BC", "B", "C");
         graph.addEdge("CA", "C", "A");
-//        graph.display();
-
-//        SpriteManager spriteManager = new SpriteManager(graph);
-//
-//        Sprite sprite = spriteManager.addSprite("sprite");
-
-//        sprite.attachToNode("A");
-//        String bb = "A\nB\nC\nD\nE";
-//        sprite.setAttribute("ui.label", bb.toString());
-//        sprite.setPosition(0,0,0);
-//        sprite.setAttribute("ui.class", "basicBlock");
-
-//        Sprite sprite1 = spriteManager.addSprite("sprite");
-//        sprite1.attachToNode("A");
-//        String bb = "A\nB\nC";
-//        sprite1.setAttribute("ui.label", "EDG");
-//        sprite1.setPosition(1,1,0);
-//        sprite1.setAttribute("ui.class", "basicBlock");
 
         Viewer viewer = new SwingViewer(graph, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
 
@@ -119,66 +94,21 @@ public class Clicks {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setModal(true);
-//        Viewer viewer = graph.display();
-//        viewer.getDefaultView().enableMouseOptions();
-//
-//        // The default action when closing the view is to quit
-//        // the program.
-//        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
 
-        // We connect back the viewer to the graph,
-        // the graph becomes a sink for the viewer.
-        // We also install us as a viewer listener to
-        // intercept the graphic events.
         ViewerPipe fromViewer = viewer.newViewerPipe();
         fromViewer.addViewerListener(new MouseOptions());
         fromViewer.addSink(graph);
 
-        // Then we need a loop to do our work and to wait for events.
-        // In this loop we will need to call the
-        // pump() method before each use of the graph to copy back events
-        // that have already occurred in the viewer thread inside
-        // our thread.
-
-//        fromViewer.pump();
-
         while(loop) {
-            fromViewer.pump(); // or fromViewer.blockingPump(); in the nightly builds
+            fromViewer.pump();
             if (!frame.isVisible()) {
-//                frame.dispose();
                 break;
             }
-            // here your simulation code.
-
-            // You do not necessarily need to use a loop, this is only an example.
-            // as long as you call pump() before using the graph. pump() is non
-            // blocking.  If you only use the loop to look at event, use blockingPump()
-            // to avoid 100% CPU usage. The blockingPump() method is only available from
-            // the nightly builds.
         }
 
     }
 
-//    public void viewClosed(String id) {
-//        loop = false;
-//    }
-//
-//    public void buttonPushed(String id) {
-//        codeArea.setText((String) graph.getNode(id).getAttribute("ui.label"));
-//        codeArea.setEditable(false);
-//    }
-//
-//    public void buttonReleased(String id) {
-//        System.out.println("Button released on node "+id);
-//    }
-//
-//    public void mouseOver(String id) {
-//        System.out.println("Need the Mouse Options to be activated");
-//    }
-//
-//    public void mouseLeft(String id) {
-//        System.out.println("Need the Mouse Options to be activated");
-//    }
+
 
     public class MouseOptions implements ViewerListener {
         public void viewClosed(String id) {
