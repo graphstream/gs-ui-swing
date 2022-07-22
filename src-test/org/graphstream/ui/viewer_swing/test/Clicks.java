@@ -64,11 +64,12 @@ public class Clicks {
         graph = new SingleGraph("Clicks");
         graph.setAttribute("ui.stylesheet",
                 "node {\n" +
-                        "    fill-color: #f0f0f0;\n" +
+                        "    fill-color: yellow;\n" +
                         "    text-color: blue;\n" +
                         "    text-size: 15;\n" +
                         "    shape: box;\n" +
-                        "    size: 50px;\n" +
+//                        "    size: 50px;\n" +
+                        "    size-mode: fit;\n" +
                         "}\n" +
                         "sprite.basicBlock {\n" +
                         "    shape: rounded-box;\n" +
@@ -80,7 +81,7 @@ public class Clicks {
                         "}");
 
         Node a = graph.addNode("A");
-        a.setAttribute("ui.label", "Line1\nLine2\nLine3");
+        a.setAttribute("ui.label", "\n {       \n       Line1\n          ABVCC DDF ADSF ADSF ASD\na\n\nc");
         graph.addNode("B");
         graph.addNode("C");
         graph.addEdge("AB", "A", "B");
