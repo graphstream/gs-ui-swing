@@ -74,7 +74,7 @@ public class Clicks {
                         "}");
 
         Node a = graph.addNode("A");
-        a.setAttribute("ui.label", "\n {       \n       Line1\n          ABVCC DDF ADSF ADSF ASD\na\n\nc");
+        a.setAttribute("ui.label", "Line1\nLine2\nLine3\nLine4\nLine5\nLine6\nLine7\nLine8\nLine9\nLine10\nLine11\nLine12\nLine13\nLine14\nLine15\nLine16\nLine17\nLine18\nLine19\nLine20\nLine21\nLine22\nLine23\nLine24\nLine25");
         graph.addNode("B");
         graph.addNode("C");
         graph.addEdge("AB", "A", "B");
@@ -89,7 +89,7 @@ public class Clicks {
         viewer.enableAutoLayout();
 
         panel.add(viewPanel, BorderLayout.CENTER);
-        panel.add(codeArea, BorderLayout.SOUTH);
+//        panel.add(codeArea, BorderLayout.SOUTH);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -117,8 +117,8 @@ public class Clicks {
         }
 
         public void buttonPushed(String id) {
-            codeArea.setText((String) graph.getNode(id).getAttribute("ui.label"));
-            codeArea.setEditable(false);
+//            codeArea.setText((String) graph.getNode(id).getAttribute("ui.label"));
+//            codeArea.setEditable(false);
         }
 
         public void buttonReleased(String id) {
